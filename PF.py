@@ -11,7 +11,9 @@ RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 YELLOW = (255, 255, 0)
-class Player(pygame.sprite.Sprite): 
+
+
+class Player(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         player_img = pygame.image.load(
@@ -51,7 +53,7 @@ try:
 
         # Processa os eventos (mouse, teclado, botão, etc).
         for event in pygame.event.get():
-        all_sprites.update()
+            all_sprites.update()
     # A cada loop, redesenha o fundo e os sprites
     screen.fill(BLACK)
     screen.blit(background, background_rect)
