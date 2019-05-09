@@ -51,7 +51,6 @@ try:
 
         # Processa os eventos (mouse, teclado, botão, etc).
         for event in pygame.event.get():
-        all_sprites.update()
     # A cada loop, redesenha o fundo e os sprites
     screen.fill(BLACK)
     screen.blit(background, background_rect)
