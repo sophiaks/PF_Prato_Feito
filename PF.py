@@ -17,7 +17,7 @@ class Player(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         player_img = pygame.image.load(
-            path.join(img_dir, "cliente.png")).convert()
+            path.join(img_dir, "esteira.png")).convert()
         self.image = player_img
         self.image = pygame.transform.scale(player_img, (50, 38))
         self.image.set_colorkey(BLACK)
@@ -55,14 +55,12 @@ try:
         for event in pygame.event.get():
             all_sprites.update()
 
-
             # Mecanismo de click
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                mx, my == pygame.mouse.get_pos()
-                if mx <  and mx> and my> and my<:
-                    
+            # if event.type == pygame.MOUSEBUTTONDOWN:
+            #    mx, my == pygame.mouse.get_pos()
+            #    if mx <  and mx > and my > and my < :
 
-    # A cada loop, redesenha o fundo e os sprites
+            # A cada loop, redesenha o fundo e os sprites
     screen.fill(BLACK)
     screen.blit(background, background_rect)
     # Depois de desenhar tudo, inverte o display.
