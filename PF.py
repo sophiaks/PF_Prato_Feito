@@ -55,6 +55,8 @@ try:
         for event in pygame.event.get():
             all_sprites.update()
 
+
+            # Mecanismo de click
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mx, my == pygame.mouse.get_pos()
                 if mx <  and mx> and my> and my<:
