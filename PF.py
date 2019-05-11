@@ -43,7 +43,7 @@ all_sprites = pygame.sprite.Group()
 all_sprites.add(player)
 # Comando para evitar travamentos.
 try:
-    # Loop principal.
+    # LOOP PRINCIPAL
     running = True
     while running:
 
