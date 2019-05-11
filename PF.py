@@ -2,7 +2,7 @@ import pygame
 from os import path
 img_dir = path.join(path.dirname(__file__), 'img')
 WIDTH = 1000  # Largura da tela
-HEIGHT = 1000  # Altura da tela
+HEIGHT = 600  # Altura da tela
 FPS = 60  # Frames por segundo
 # Define algumas variáveis com as cores básicas
 WHITE = (255, 255, 255)
@@ -29,7 +29,6 @@ class Player(pygame.sprite.Sprite):
         screen.blit(background, background_rect)
         all_sprites.draw(screen)
         pygame.display.flip()
-
 
 
 # Inicialização do Pygame.
