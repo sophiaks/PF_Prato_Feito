@@ -17,7 +17,7 @@ class Player(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         player_img = pygame.image.load(
-            path.join(img_dir, "esteirapixel.png")).convert()
+            path.join(img_dir, "burrito.png")).convert()
         self.image = player_img
         self.image = pygame.transform.scale(player_img, (50, 38))
         self.image.set_colorkey(BLACK)
@@ -26,7 +26,6 @@ class Player(pygame.sprite.Sprite):
         self.rect.bottom = HEIGHT - 10
         all_sprites = pygame.sprite.Group()
         screen.fill(BLACK)
-        screen.blit(background, background_rect)
         all_sprites.draw(screen)
         pygame.display.flip()
 
@@ -39,8 +38,6 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 # Nome do jogo
 pygame.display.set_caption("FamFam")
 # Carrega o fundo do jogo
-background = pygame.image.load(path.join(img_dir, 'planofundo.png')).convert()
-background_rect = background.get_rect()
 player = Player()
 all_sprites = pygame.sprite.Group()
 all_sprites.add(player)
