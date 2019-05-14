@@ -1,5 +1,5 @@
 import pygame
-<<<<<<< HEAD
+
 from os import path
 import sys
 img_dir = path.join(path.dirname(__file__), 'img')
@@ -113,7 +113,7 @@ try:
 finally:
     pygame.quit()
     #sys.exit()
-=======
+
 all_sprites = pygame.sprite.Group()
 ing1 = Ingredientes(RED, 100, 150)
 ing2 = Ingredientes(BLUE, 100, 450)
@@ -156,4 +156,4 @@ while True:
     screen.blit(burrito, (bx, by))
     pygame.display.update()
     fpsClock.tick(FPS)
->>>>>>> c7f358ecb2a1ed93c05cb7e085c88f9af5f2a43a
+
