@@ -7,7 +7,6 @@ import pygame.locals
 
 # Inicializa o jogo
 pygame.init()
-
 # FPS e o Clock
 FPS = 120
 fpsClock = pygame.time.Clock()
