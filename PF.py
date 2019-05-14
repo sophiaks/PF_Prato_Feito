@@ -17,7 +17,7 @@ screen = pygame.display.set_mode((1000, 750), 0, 32)
 pygame.display.set_caption('Burrito Animado')
 
 burrito = pygame.transform.scale(
-    (pygame.image.load('burrito.png')), (100, 100))
+    (pygame.image.load('tortilla.png')), (100, 100))
 
 bx = -150
 by = 400
@@ -30,8 +30,6 @@ RED = (255,   0,   0)
 GREEN = (0, 255,   0)
 BLUE = (0,   0, 255)
 OLIVE = (128, 128, 0)
-
-# Desenhando o retângulo de ingredientes
 
 # Classe de ingredientes?
 
