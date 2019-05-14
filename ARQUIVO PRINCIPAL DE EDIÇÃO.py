@@ -15,7 +15,7 @@ screen = pygame.display.set_mode((1000, 750), 0, 32)
 
 pygame.display.set_caption('Burrito Animado')
 
-burrito = pygame.transform.scale(
+Tortilla = pygame.transform.scale(
     (pygame.image.load('tortilla.png')), (200, 200))
 
 bx = -150
@@ -31,6 +31,22 @@ OLIVE = (128, 128, 0)
 
 # Desenhando o retângulo de ingredientes
 
+#Classe da tortilla
+
+class Tortilla(pygame.sprite.Sprite):
+    def __init__(self, color,x,y):
+        pygame.sprite.Sprite.__init__(self)
+        self.x = y
+        self.y = x
+        self.color = 
+        self.image = pygame.Surface(Tortilla.large_ing, Tortilla.alt_ing)
+        self.image.fill(self.color)
+        self.rect = self.image.get_rect()
+        self.rect.x = self.x
+        self.rect.y = self.y
+        self.image = pygame.transform.scale(player_img, (200, 200))
+        self.radius = 100
+    
 # Classe de ingredientes?
 
 
@@ -64,7 +80,7 @@ screen.fill(WHITE)
 
 while True:
     bx += 1
-    screen.blit(burrito, (bx, by))
+    screen.blit(Tortilla, (bx, by))
 
     for event in pygame.event.get():
         if event.type == QUIT:
@@ -78,18 +94,28 @@ while True:
                 ing12 = Ingredientes(OLIVE, 100, 150)
                 all_sprites.add(ing12)
                 pygame.display.update()
+                q1=True
             if 450 < mx < 550 and 100 < my < 200:
                 ing13 = Ingredientes(OLIVE, 100, 450)
                 all_sprites.add(ing13)
                 pygame.display.update()
+                q2=True
             if 750 < mx < 850 and 100 < my < 200:
                 ing14 = Ingredientes(OLIVE, 100, 750)
                 all_sprites.add(ing14)
                 pygame.display.update()
+                q3=True
+'''
+            if q1==True and :
+                ing1 = Ingredientes(RED, 100, 150)
+            if q2==True and :
+                ing2 = Ingredientes(BLUE, 100, 450)
+            if q3==True and :
+'''                
 
     all_sprites.update()
     screen.fill(WHITE)
     all_sprites.draw(screen)
-    screen.blit(burrito, (bx, by))
+    screen.blit(Tortilla, (bx, by))
     pygame.display.update()
     fpsClock.tick(FPS)
