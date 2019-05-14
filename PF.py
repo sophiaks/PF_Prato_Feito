@@ -1,7 +1,9 @@
 import pygame
-import sys
-from os import path
-from pygame.locals import *
+WIDTH = 1000  # Largura da tela
+HEIGHT = 600  # Altura da tela
+FPS = 60  # Frames por segundo
+# Define algumas variáveis com as cores básicas
+import pygame.locals
 
 # Inicializa o jogo
 pygame.init()
