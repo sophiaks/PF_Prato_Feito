@@ -35,7 +35,6 @@ OLIVE = (128, 128, 0)
 
 # Classe de ingredientes?
 
-
 class Ingredientes(pygame.sprite.Sprite):
     larg_ing = 100
     alt_ing = 100
@@ -59,7 +58,6 @@ ing2 = Ingredientes(BLUE, 100, 450)
 ing3 = Ingredientes(GREEN, 100, 750)
 all_sprites.add(ing1, ing2, ing3)
 
-
 screen.fill(WHITE)
 
 # Loop principal
@@ -71,7 +69,6 @@ while True:
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
-            sys.exit(0)
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             mx, my = pygame.mouse.get_pos()
