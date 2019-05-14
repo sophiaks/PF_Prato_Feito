@@ -1,5 +1,6 @@
 import pygame
 from os import path
+import sys
 img_dir = path.join(path.dirname(__file__), 'img')
 WIDTH = 480  # Largura da tela
 HEIGHT = 600  # Altura da tela
@@ -11,7 +12,7 @@ RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 YELLOW = (255, 255, 0)
-class Player(pygame.sprite.Sprite): 
+'''class Player(pygame.sprite.Sprite): 
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         player_img = pygame.image.load(
@@ -28,7 +29,7 @@ class Player(pygame.sprite.Sprite):
         all_sprites.draw(screen)
         pygame.displayflip()
 
-
+'''
 # Inicialização do Pygame.
 pygame.init()
 pygame.mixer.init()
@@ -39,9 +40,9 @@ pygame.display.set_caption("FamFam")
 # Carrega o fundo do jogo
 background = pygame.image.load(path.join(img_dir, 'planofundo.png')).convert()
 background_rect = background.get_rect()
-player = Player()
+#player = Player()
 all_sprites = pygame.sprite.Group()
-all_sprites.add(player)
+#all_sprites.add(player)
 # Comando para evitar travamentos.
 try:
 
@@ -51,16 +52,21 @@ try:
 
         # Processa os eventos (mouse, teclado, botão, etc).
         for event in pygame.event.get():
-            all_sprites.update()
+            # Verifica se foi fechado
+            if event.type == pygame.QUIT:
+                running = False
 
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                mx, my == pygame.mouse.get_pos()
-                if mx <  and mx> and my> and my<:
+        all_sprites.update()
+
+            #if event.type == pygame.MOUSEBUTTONDOWN:
+            #    mx, my == pygame.mouse.get_pos()
+            #    if mx <  and mx> and my> and my<:
                     
-    # A cada loop, redesenha o fundo e os sprites
-    screen.fill(BLACK)
-    screen.blit(background, background_rect)
-    # Depois de desenhar tudo, inverte o display.
-    pygame.display.flip()
+        # A cada loop, redesenha o fundo e os sprites
+        screen.fill(BLACK)
+        screen.blit(background, background_rect)
+        # Depois de desenhar tudo, inverte o display.
+        pygame.display.flip()
 finally:
     pygame.quit()
+    #sys.exit()
