@@ -40,7 +40,6 @@ OLIVE = (128, 128, 0)
 
 # Classe de ingredientes?
 
-
 class Ingredientes(pygame.sprite.Sprite):
     larg_ing = 100
     alt_ing = 100
@@ -87,24 +86,17 @@ try:
         # Processa os eventos (mouse, teclado, botão, etc).
         for event in pygame.event.get():
             all_sprites.update()
-
-            # Mecanismo de click
-            # if event.type == pygame.MOUSEBUTTONDOWN:
-            #    mx, my == pygame.mouse.get_pos()
-            #    if mx <  and mx > and my > and my < :
-
             # A cada loop, redesenha o fundo e os sprites
-    screen.fill(BLACK)
-    screen.blit(background, background_rect)
+    #screen.blit(background, background_rect)
     # Depois de desenhar tudo, inverte o display.
     pygame.display.flip()
 finally:
     pygame.quit()
+
 ing1 = Ingredientes(RED, 100, 150)
 ing2 = Ingredientes(BLUE, 100, 450)
 ing3 = Ingredientes(GREEN, 100, 750)
 all_sprites.add(ing1, ing2, ing3)
-
 
 screen.fill(WHITE)
 
@@ -117,7 +109,6 @@ while True:
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
-            sys.exit(0)
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             mx, my = pygame.mouse.get_pos()
