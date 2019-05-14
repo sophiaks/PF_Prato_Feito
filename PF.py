@@ -1,13 +1,9 @@
 import pygame
-from os import path
-img_dir = path.join(path.dirname(__file__), 'img')
 WIDTH = 1000  # Largura da tela
 HEIGHT = 600  # Altura da tela
 FPS = 60  # Frames por segundo
 # Define algumas variáveis com as cores básicas
-import sys
-
-from pygame.locals import *
+import pygame.locals
 
 # Inicializa o jogo
 pygame.init()
@@ -84,9 +80,7 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 # Nome do jogo
 pygame.display.set_caption("FamFam")
 # Carrega o fundo do jogo
-player = Player()
 all_sprites = pygame.sprite.Group()
-all_sprites.add(player)
 # Comando para evitar travamentos.
 try:
     # LOOP PRINCIPAL
