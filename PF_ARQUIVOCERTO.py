@@ -15,19 +15,25 @@ screen = pygame.display.set_mode((1000, 750), 0, 32)
 
 pygame.display.set_caption('Burrito Animado')
 
-Tortilla = pygame.transform.scale(
-    (pygame.image.load('tortilla.png')), (200, 200))
+burrito = pygame.transform.scale(
+    (pygame.image.load('tortilla.png')), (250, 250))
 
 bx = -150
 by = 400
 
 # cores
 BLACK = (0,   0,   0)
+GRAY = (96, 96, 96)
 WHITE = (255, 255, 255)
 RED = (255,   0,   0)
+DARK_RED = (153, 0, 0)
 GREEN = (0, 255,   0)
+DARK_GREEN = (0, 102, 0)
 BLUE = (0,   0, 255)
+NAVY = (0, 0, 102)
 OLIVE = (128, 128, 0)
+GOLD = (255, 215, 0)
+PINK = (255, 51, 153)
 
 # Desenhando o retângulo de ingredientes
 
@@ -68,10 +74,13 @@ class Ingredientes(pygame.sprite.Sprite):
 
 
 all_sprites = pygame.sprite.Group()
-ing1 = Ingredientes(RED, 100, 150)
-ing2 = Ingredientes(BLUE, 100, 450)
-ing3 = Ingredientes(GREEN, 100, 750)
-all_sprites.add(ing1, ing2, ing3)
+ing1 = Ingredientes(RED, 100, 50)
+ing2 = Ingredientes(BLUE, 100, 200)
+ing3 = Ingredientes(GREEN, 100, 350)
+ing4 = Ingredientes(BLACK, 100, 500)
+ing5 = Ingredientes(GOLD, 100, 650)
+ing6 = Ingredientes(PINK, 100, 800)
+all_sprites.add(ing1, ing2, ing3, ing4, ing5, ing6)
 
 
 screen.fill(WHITE)
@@ -90,29 +99,44 @@ while True:
         if event.type == pygame.MOUSEBUTTONDOWN:
             mx, my = pygame.mouse.get_pos()
             print(mx, my)
-            if 150 < mx < 250 and 100 < my < 200:
-                ing12 = Ingredientes(OLIVE, 100, 150)
+            if 50 < mx < 150 and 100 < my < 200:
+                ing12 = Ingredientes(OLIVE, 100, 50)
                 all_sprites.add(ing12)
                 pygame.display.update()
-                q1=True
-            if 450 < mx < 550 and 100 < my < 200:
-                ing13 = Ingredientes(OLIVE, 100, 450)
+                q1= True
+            if 200 < mx < 300 and 100 < my < 200:
+                ing13 = Ingredientes(OLIVE, 100, 200)
                 all_sprites.add(ing13)
                 pygame.display.update()
                 q2=True
-            if 750 < mx < 850 and 100 < my < 200:
-                ing14 = Ingredientes(OLIVE, 100, 750)
+            if 350 < mx < 450 and 100 < my < 200:
+                ing14 = Ingredientes(OLIVE, 100, 350)
                 all_sprites.add(ing14)
                 pygame.display.update()
                 q3=True
+            if 500 < mx < 600 and 100 < my < 200:
+                ing15 = Ingredientes(OLIVE, 100, 500)
+                all_sprites.add(ing15)
+                pygame.display.update()
+                q4=True
+            if 650 < mx < 750 and 100 < my < 200:
+                ing16 = Ingredientes(OLIVE, 100, 650)
+                all_sprites.add(ing16)
+                pygame.display.update()
+                q5=True
+            if 800 < mx < 900 and 100 < my < 200:
+                ing17 = Ingredientes(OLIVE, 100, 800)
+                all_sprites.add(ing17)
+                pygame.display.update()
+                q6=True
+                
 '''
-            if q1==True and :
-                ing1 = Ingredientes(RED, 100, 150)
-            if q2==True and :
-                ing2 = Ingredientes(BLUE, 100, 450)
-            if q3==True and :
+        if q1==True and :
+            ing1 = Ingredientes(RED, 100, 150)
+        if q2==True and :
+            ing2 = Ingredientes(BLUE, 100, 450)
+        if q3==True and :
 '''                
-
     all_sprites.update()
     screen.fill(WHITE)
     all_sprites.draw(screen)
