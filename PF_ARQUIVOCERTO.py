@@ -46,7 +46,7 @@ class Tortilla(pygame.sprite.Sprite):
         self.x = y
         self.y = x
         self.color = color
-        self.image = pygame.Surface(Tortilla.large_ing, Tortilla.alt_ing)
+        self.image = pygame.Surface(burrito.large_ing, burrito.alt_ing)
         self.image.fill(self.color)
         self.rect = self.image.get_rect()
         self.rect.x = self.x
@@ -90,7 +90,7 @@ screen.fill(WHITE)
 
 while True:
     bx += 1
-    screen.blit(Tortilla, (bx, by))
+    screen.blit(burrito, (bx, by))
 
     for event in pygame.event.get():
         if event.type == QUIT:
@@ -131,20 +131,20 @@ while True:
                 pygame.display.update()
                 q6=True
                 
-'''
-        if q1==True and (bx-125)<mx<(bx-125) and (by-125)<my<(by-125):
-            ing1 = Ingredientes(RED, 100, 150)
-            pygame.display.update()
-        if q2==True and (bx-125)<mx<(bx-125) and (by-125)<my<(by-125):
-            ing2 = Ingredientes(BLUE, 100, 450)
-            pygame.display.update()
-        if q3==True and (bx-125)<mx<(bx-125) and (by-125)<my<(by-125):
-            ing3 = Ingredientes(GREEN, 100, 350)
-            pygame.display.update()
-'''                
+
+        #if q1==True and (bx-125)<mx<(bx-125) and (by-125)<my<(by-125):
+        #    ing1 = Ingredientes(RED, 100, 150)
+        #    pygame.display.update()
+        #if q2==True and (bx-125)<mx<(bx-125) and (by-125)<my<(by-125):
+        #    ing2 = Ingredientes(BLUE, 100, 450)
+        #    pygame.display.update()
+        #if q3==True and (bx-125)<mx<(bx-125) and (by-125)<my<(by-125):
+        #    ing3 = Ingredientes(GREEN, 100, 350)
+        #    pygame.display.update()          
+    
     all_sprites.update()
     screen.fill(WHITE)
     all_sprites.draw(screen)
-    screen.blit(Tortilla, (bx, by))
+    screen.blit(burrito, (bx, by))
     pygame.display.update()
     fpsClock.tick(FPS)
