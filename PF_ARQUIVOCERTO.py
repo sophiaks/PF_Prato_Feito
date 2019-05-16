@@ -15,7 +15,7 @@ screen = pygame.display.set_mode((1000, 750), 0, 32)
 
 pygame.display.set_caption('Burrito Animado')
 
-burrito = pygame.transform.scale(
+Tortilla = pygame.transform.scale(
     (pygame.image.load('tortilla.png')), (250, 250))
 
 bx = -150
@@ -44,7 +44,7 @@ class Tortilla(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.x = y
         self.y = x
-        self.color = 
+        self.color = color
         self.image = pygame.Surface(Tortilla.large_ing, Tortilla.alt_ing)
         self.image.fill(self.color)
         self.rect = self.image.get_rect()
@@ -137,9 +137,9 @@ while True:
             ing2 = Ingredientes(BLUE, 100, 450)
         if q3==True and :
 '''                
-    all_sprites.update()
-    screen.fill(WHITE)
-    all_sprites.draw(screen)
-    screen.blit(Tortilla, (bx, by))
-    pygame.display.update()
-    fpsClock.tick(FPS)
+all_sprites.update()
+screen.fill(WHITE)
+all_sprites.draw(screen)
+screen.blit(Tortilla, (bx, by))
+pygame.display.update()
+fpsClock.tick(FPS)
