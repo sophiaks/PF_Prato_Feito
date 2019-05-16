@@ -100,22 +100,22 @@ while True:
             mx, my = pygame.mouse.get_pos()
             print(mx, my)
             if 50 < mx < 150 and 100 < my < 200:
-                ing12 = Ingredientes(OLIVE, 100, 50)
+                ing12 = Ingredientes(DARK_RED, 100, 50)
                 all_sprites.add(ing12)
                 pygame.display.update()
                 q1= True
             if 200 < mx < 300 and 100 < my < 200:
-                ing13 = Ingredientes(OLIVE, 100, 200)
+                ing13 = Ingredientes(NAVY, 100, 200)
                 all_sprites.add(ing13)
                 pygame.display.update()
                 q2=True
             if 350 < mx < 450 and 100 < my < 200:
-                ing14 = Ingredientes(OLIVE, 100, 350)
+                ing14 = Ingredientes(DARK_GREEN, 100, 350)
                 all_sprites.add(ing14)
                 pygame.display.update()
                 q3=True
             if 500 < mx < 600 and 100 < my < 200:
-                ing15 = Ingredientes(OLIVE, 100, 500)
+                ing15 = Ingredientes(GRAY, 100, 500)
                 all_sprites.add(ing15)
                 pygame.display.update()
                 q4=True
@@ -125,7 +125,7 @@ while True:
                 pygame.display.update()
                 q5=True
             if 800 < mx < 900 and 100 < my < 200:
-                ing17 = Ingredientes(OLIVE, 100, 800)
+                ing17 = Ingredientes(BLUE, 100, 800)
                 all_sprites.add(ing17)
                 pygame.display.update()
                 q6=True
