@@ -1,3 +1,4 @@
+
 import pygame
 import sys
 from os import path
@@ -15,7 +16,7 @@ screen = pygame.display.set_mode((1000, 750), 0, 32)
 
 pygame.display.set_caption('Burrito Animado')
 
-Tortilla = pygame.transform.scale(
+burrito = pygame.transform.scale(
     (pygame.image.load('tortilla.png')), (250, 250))
 
 bx = -150
@@ -131,15 +132,19 @@ while True:
                 q6=True
                 
 '''
-        if q1==True and :
+        if q1==True and (bx-125)<mx<(bx-125) and (by-125)<my<(by-125):
             ing1 = Ingredientes(RED, 100, 150)
-        if q2==True and :
+            pygame.display.update()
+        if q2==True and (bx-125)<mx<(bx-125) and (by-125)<my<(by-125):
             ing2 = Ingredientes(BLUE, 100, 450)
-        if q3==True and :
+            pygame.display.update()
+        if q3==True and (bx-125)<mx<(bx-125) and (by-125)<my<(by-125):
+            ing3 = Ingredientes(GREEN, 100, 350)
+            pygame.display.update()
 '''                
-all_sprites.update()
-screen.fill(WHITE)
-all_sprites.draw(screen)
-screen.blit(Tortilla, (bx, by))
-pygame.display.update()
-fpsClock.tick(FPS)
+    all_sprites.update()
+    screen.fill(WHITE)
+    all_sprites.draw(screen)
+    screen.blit(Tortilla, (bx, by))
+    pygame.display.update()
+    fpsClock.tick(FPS)
