@@ -15,8 +15,8 @@ screen = pygame.display.set_mode((1000, 750), 0, 32)
 
 pygame.display.set_caption('Burrito Animado')
 
-# tortilla = pygame.transform.scale(
-#     (pygame.image.load('tortilla.png')), (250, 250))
+tortilla = pygame.transform.scale(
+    (pygame.image.load('tortilla.png')), (250, 250))
 
 bx = -150
 by = 400
@@ -54,7 +54,7 @@ class Tortilla(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
-        #self.image = pygame.transform.scale(player_img, (200, 200))
+        self.image = pygame.transform.scale(tortilla, (200, 200))
         self.radius = 100
 
     def update(self):
