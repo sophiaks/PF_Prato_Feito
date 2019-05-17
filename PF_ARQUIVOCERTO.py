@@ -20,7 +20,6 @@ burrito = pygame.transform.scale(
 
 bx = -150
 by = 400
-
 # cores
 BLACK = (0,   0,   0)
 GRAY = (96, 96, 96)
@@ -129,8 +128,7 @@ while True:
                 all_sprites.add(ing17)
                 pygame.display.update()
                 q6=True
-                
-'''
+'''                
         if q1==True and :
             ing1 = Ingredientes(RED, 100, 150)
         if q2==True and :
