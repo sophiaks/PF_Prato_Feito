@@ -10,7 +10,11 @@ FPS = 120
 fpsClock = pygame.time.Clock()
 
 # janela (screen)
-
+# if toggle_fullscreen.full:
+#     screen_res = pygame.display.set_mode((1000, 750), 0, 32),pygame.FULLSCREEN)
+# else:
+#     screen_res = pygame/display.set_mode((1000, 750), 0, 32)
+#     toggle_fullscreen.full = not toggle_fullscreen.full
 screen = pygame.display.set_mode((1000, 750), 0, 32)
 
 pygame.display.set_caption('Burrito Animado')
@@ -60,6 +64,9 @@ class Tortilla(pygame.sprite.Sprite):
     def update(self):
         self.rect.x += 1
 
+    # def troca_ingrediente(self):
+    #     //TODO
+
         # Classe de ingredientes?
 
 
@@ -104,25 +111,16 @@ screen.fill(WHITE)
 # Loop principal
 
 while True:
-    # bx += 1
-    # screen.blit(tortilla, (bx, by))
 
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
             sys.exit(0)
-
+        
         if event.type == pygame.MOUSEBUTTONDOWN:
             mx, my = pygame.mouse.get_pos()
-            '''
-            q1 = False
-            q2 = False
-            q3 = False
-            q4 = False
-            q5 = False
-            q6 = False
-            solta = False
-            '''
+            
+            
             for ing in ingredientes:
                 r = ing.rect
                 if r.x <= mx and mx <= r.x + 100 and r.y <= my and my <= r.y + 100:
@@ -130,93 +128,16 @@ while True:
                     ing.selecionado()
                     pygame.display.update()
                     break
-            # if 50 < mx < 150 and 100 < my < 200:
-            #     ing12 = Ingredientes(DARK_RED, 100, 50)
-            #     all_sprites.add(ing12)
-            #     pygame.display.update()
-            #     ingrediente_selecionado = ing12
-            #     #q1 = True
-            # if 200 < mx < 300 and 100 < my < 200:
-            #     ing13 = Ingredientes(NAVY, 100, 200)
-            #     all_sprites.add(ing13)
-            #     pygame.display.update()
-            #     #q2 = True
-            # if 350 < mx < 450 and 100 < my < 200:
-            #     ing14 = Ingredientes(DARK_GREEN, 100, 350)
-            #     all_sprites.add(ing14)
-            #     pygame.display.update()
-            #     #q3 = True
-            # if 500 < mx < 600 and 100 < my < 200:
-            #     ing15 = Ingredientes(GRAY, 100, 500)
-            #     all_sprites.add(ing15)
-            #     pygame.display.update()
-            #     #q4 = True
-            # if 650 < mx < 750 and 100 < my < 200:
-            #     ing16 = Ingredientes(OLIVE, 100, 650)
-            #     all_sprites.add(ing16)
-            #     pygame.display.update()
-            #     #q5 = True
-            # if 800 < mx < 900 and 100 < my < 200:
-            #     ing17 = Ingredientes(BLUE, 100, 800)
-            #     all_sprites.add(ing17)
-            #     pygame.display.update()
-            #     #q6 = True
 
-            # if event.type == pygame.MOUSEBUTTONUP:
-            #    solta = True
-
-        # and q1 == True and solta == True:
-        if event.type == pygame.MOUSEBUTTONDOWN and ingrediente_selecionado is not None:
+        if event.type == pygame.MOUSEBUTTONDOWN and ingrediente_selecionado is not None: 
             cx, cy = pygame.mouse.get_pos()
-            if (bx-125) < cx < (bx+125) and (by-125) < cy < (by+125):
-                print("acerti")
+            t = tortilla.rect
+            if t.x <= cx and cx <= t.x+250 and t.y <= cy and cy <= t.y + 250:
+                print("acertei")
                 ing_teste = ingrediente_selecionado
-                all_sprites.add(ing_teste)
+                #all_sprites.add(ing_teste)
                 pygame.display.update()
-                ingrediente_selecionado = None
-            else:
-                ing_testee = Ingrediente(BROWN, BLACK, 100, 50)
-                all_sprites.add(ing_testee)
-                pygame.display.update()
-                q1 = True
-            if 200 < mx < 300 and 100 < my < 200:
-                ing13 = Ingrediente(NAVY, BLACK, 100, 200)
-                all_sprites.add(ing13)
-                pygame.display.update()
-                q2 = True
-            if 350 < mx < 450 and 100 < my < 200:
-                ing14 = Ingrediente(DARK_GREEN, BLACK, 100, 350)
-                all_sprites.add(ing14)
-                pygame.display.update()
-                q3 = True
-            if 500 < mx < 600 and 100 < my < 200:
-                ing15 = Ingrediente(GRAY, BLACK, 100, 500)
-                all_sprites.add(ing15)
-                pygame.display.update()
-                q4 = True
-            if 650 < mx < 750 and 100 < my < 200:
-                ing16 = Ingrediente(OLIVE, BLACK, 100, 650)
-                all_sprites.add(ing16)
-                pygame.display.update()
-                q5 = True
-            if 800 < mx < 900 and 100 < my < 200:
-                ing17 = Ingrediente(BLUE, BLACK, 100, 800)
-                all_sprites.add(ing17)
-                pygame.display.update()
-                q6 = True
-        # screen.get_rect()
-            # if rect.left > 1000:
-                #dindin -= 100
-
-        # if q1==True and (bx-125)<mx<(bx-125) and (by-125)<my<(by-125):
-        #    ing1 = Ingredientes(RED, 100, 150)
-        #    pygame.display.update()
-        # if q2==True and (bx-125)<mx<(bx-125) and (by-125)<my<(by-125):
-        #    ing2 = Ingredientes(BLUE, 100, 450)
-        #    pygame.display.update()
-        # if q3==True and (bx-125)<mx<(bx-125) and (by-125)<my<(by-125):
-        #    ing3 = Ingredientes(GREEN, 100, 350)
-        #    pygame.display.update()
+                ingrediente_selecionado = None        
 
     all_sprites.update()
     screen.fill(WHITE)
