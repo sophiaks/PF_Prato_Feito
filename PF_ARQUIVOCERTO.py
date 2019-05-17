@@ -38,10 +38,11 @@ PINK = (255, 51, 153)
 
 # Desenhando o retângulo de ingredientes
 
-#Classe da tortilla
+# Classe da tortilla
+
 
 class Tortilla(pygame.sprite.Sprite):
-    def __init__(self, color,x,y):
+    def __init__(self, color, x, y):
         pygame.sprite.Sprite.__init__(self)
         self.x = y
         self.y = x
@@ -53,7 +54,7 @@ class Tortilla(pygame.sprite.Sprite):
         self.rect.y = self.y
         self.image = pygame.transform.scale(player_img, (200, 200))
         self.radius = 100
-    
+
 # Classe de ingredientes?
 
 
@@ -104,47 +105,46 @@ while True:
                 ing12 = Ingredientes(DARK_RED, 100, 50)
                 all_sprites.add(ing12)
                 pygame.display.update()
-                q1= True
+                q1 = True
             if 200 < mx < 300 and 100 < my < 200:
                 ing13 = Ingredientes(NAVY, 100, 200)
                 all_sprites.add(ing13)
                 pygame.display.update()
-                q2=True
+                q2 = True
             if 350 < mx < 450 and 100 < my < 200:
                 ing14 = Ingredientes(DARK_GREEN, 100, 350)
                 all_sprites.add(ing14)
                 pygame.display.update()
-                q3=True
+                q3 = True
             if 500 < mx < 600 and 100 < my < 200:
                 ing15 = Ingredientes(GRAY, 100, 500)
                 all_sprites.add(ing15)
                 pygame.display.update()
-                q4=True
+                q4 = True
             if 650 < mx < 750 and 100 < my < 200:
                 ing16 = Ingredientes(OLIVE, 100, 650)
                 all_sprites.add(ing16)
                 pygame.display.update()
-                q5=True
+                q5 = True
             if 800 < mx < 900 and 100 < my < 200:
                 ing17 = Ingredientes(BLUE, 100, 800)
                 all_sprites.add(ing17)
                 pygame.display.update()
-                q6=True
-        #screen.get_rect()
-            #if rect.left > 1000:
+                q6 = True
+        # screen.get_rect()
+            # if rect.left > 1000:
                 #dindin -= 100
-                
 
-        #if q1==True and (bx-125)<mx<(bx-125) and (by-125)<my<(by-125):
+        # if q1==True and (bx-125)<mx<(bx-125) and (by-125)<my<(by-125):
         #    ing1 = Ingredientes(RED, 100, 150)
         #    pygame.display.update()
-        #if q2==True and (bx-125)<mx<(bx-125) and (by-125)<my<(by-125):
+        # if q2==True and (bx-125)<mx<(bx-125) and (by-125)<my<(by-125):
         #    ing2 = Ingredientes(BLUE, 100, 450)
         #    pygame.display.update()
-        #if q3==True and (bx-125)<mx<(bx-125) and (by-125)<my<(by-125):
+        # if q3==True and (bx-125)<mx<(bx-125) and (by-125)<my<(by-125):
         #    ing3 = Ingredientes(GREEN, 100, 350)
-        #    pygame.display.update()          
-    
+        #    pygame.display.update()
+
     all_sprites.update()
     screen.fill(WHITE)
     all_sprites.draw(screen)
