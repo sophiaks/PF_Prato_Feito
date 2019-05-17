@@ -1,4 +1,3 @@
-
 import pygame
 import sys
 from os import path
@@ -35,8 +34,8 @@ NAVY = (0, 0, 102)
 OLIVE = (128, 128, 0)
 GOLD = (255, 215, 0)
 PINK = (255, 51, 153)
-ORANGE = (255,140,0)
-BROWN = (139,69,19)
+ORANGE = (255, 140, 0)
+BROWN = (139, 69, 19)
 
 # Desenhando o retângulo de ingredientes
 
@@ -44,25 +43,24 @@ BROWN = (139,69,19)
 
 
 class Tortilla(pygame.sprite.Sprite):
-    def __init__(self, x,y):
+
+    def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
         self.x = y
         self.y = x
-        self.image = pygame.Surface(tortilla.large_ing, tortilla.alt_ing)
+        self.image = pygame.Surface((200, 200))
+        self.color = OLIVE
         self.image.fill(self.color)
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
-        self.image = pygame.transform.scale(player_img, (200, 200))
+        #self.image = pygame.transform.scale(player_img, (200, 200))
         self.radius = 100
 
     def update(self):
         self.rect.x += 1
 
-    def trocaIngrediente(self):
-        // TODO:
-    
-# Classe de ingredientes?
+        # Classe de ingredientes?
 
 
 class Ingrediente(pygame.sprite.Sprite):
@@ -76,7 +74,7 @@ class Ingrediente(pygame.sprite.Sprite):
         self.color_selecionado = color_selecionado
         self.color = color
         self.image = pygame.Surface(
-            (Ingredientes.larg_ing, Ingredientes.alt_ing))
+            (Ingrediente.larg_ing, Ingrediente.alt_ing))
         self.image.fill(self.color)
         self.rect = self.image.get_rect()
         self.rect.x = self.x
@@ -86,9 +84,8 @@ class Ingrediente(pygame.sprite.Sprite):
         self.image.fill(self.color_selecionado)
 
 
-
 all_sprites = pygame.sprite.Group()
-ingredientes=[]
+ingredientes = []
 ingredientes.append(Ingrediente(RED, DARK_RED, 100, 50))
 ingredientes.append(Ingrediente(BLUE, DARK_RED, 100, 200))
 ingredientes.append(Ingrediente(GREEN, DARK_RED, 100, 350))
@@ -164,13 +161,13 @@ while True:
             #     all_sprites.add(ing17)
             #     pygame.display.update()
             #     #q6 = True
-        
-            #if event.type == pygame.MOUSEBUTTONUP:
+
+            # if event.type == pygame.MOUSEBUTTONUP:
             #    solta = True
 
-        if event.type == pygame.MOUSEBUTTONDOWN and ingrediente_selecionado is not None: #and q1 == True and solta == True:
+        # and q1 == True and solta == True:
+        if event.type == pygame.MOUSEBUTTONDOWN and ingrediente_selecionado is not None:
             cx, cy = pygame.mouse.get_pos()
-            tortilla.
             if (bx-125) < cx < (bx+125) and (by-125) < cy < (by+125):
                 print("acerti")
                 ing_teste = ingrediente_selecionado
@@ -178,32 +175,32 @@ while True:
                 pygame.display.update()
                 ingrediente_selecionado = None
             else:
-                ing_testee = Ingredientes(BROWN, 100, 50)
+                ing_testee = Ingrediente(BROWN, BLACK, 100, 50)
                 all_sprites.add(ing_testee)
                 pygame.display.update()
                 q1 = True
             if 200 < mx < 300 and 100 < my < 200:
-                ing13 = Ingredientes(NAVY, 100, 200)
+                ing13 = Ingrediente(NAVY, BLACK, 100, 200)
                 all_sprites.add(ing13)
                 pygame.display.update()
                 q2 = True
             if 350 < mx < 450 and 100 < my < 200:
-                ing14 = Ingredientes(DARK_GREEN, 100, 350)
+                ing14 = Ingrediente(DARK_GREEN, BLACK, 100, 350)
                 all_sprites.add(ing14)
                 pygame.display.update()
                 q3 = True
             if 500 < mx < 600 and 100 < my < 200:
-                ing15 = Ingredientes(GRAY, 100, 500)
+                ing15 = Ingrediente(GRAY, BLACK, 100, 500)
                 all_sprites.add(ing15)
                 pygame.display.update()
                 q4 = True
             if 650 < mx < 750 and 100 < my < 200:
-                ing16 = Ingredientes(OLIVE, 100, 650)
+                ing16 = Ingrediente(OLIVE, BLACK, 100, 650)
                 all_sprites.add(ing16)
                 pygame.display.update()
                 q5 = True
             if 800 < mx < 900 and 100 < my < 200:
-                ing17 = Ingredientes(BLUE, 100, 800)
+                ing17 = Ingrediente(BLUE, BLACK, 100, 800)
                 all_sprites.add(ing17)
                 pygame.display.update()
                 q6 = True
@@ -224,6 +221,6 @@ while True:
     all_sprites.update()
     screen.fill(WHITE)
     all_sprites.draw(screen)
-    screen.blit(tortilla, (bx, by))
+    screen.blit(tortilla.image, (bx, by))
     pygame.display.update()
     fpsClock.tick(FPS)
