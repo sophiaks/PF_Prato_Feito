@@ -21,7 +21,7 @@ pygame.display.set_caption('Burrito Animado')
 
 bx = -150
 by = 400
-
+dindin = 1000
 # cores
 BLACK = (0,   0,   0)
 GRAY = (96, 96, 96)
@@ -40,7 +40,8 @@ BROWN = (139,69,19)
 
 # Desenhando o retângulo de ingredientes
 
-#Classe da tortilla
+# Classe da tortilla
+
 
 class Tortilla(pygame.sprite.Sprite):
     def __init__(self, x,y):
@@ -180,6 +181,45 @@ while True:
                 ing_testee = Ingredientes(BROWN, 100, 50)
                 all_sprites.add(ing_testee)
                 pygame.display.update()
+                q1 = True
+            if 200 < mx < 300 and 100 < my < 200:
+                ing13 = Ingredientes(NAVY, 100, 200)
+                all_sprites.add(ing13)
+                pygame.display.update()
+                q2 = True
+            if 350 < mx < 450 and 100 < my < 200:
+                ing14 = Ingredientes(DARK_GREEN, 100, 350)
+                all_sprites.add(ing14)
+                pygame.display.update()
+                q3 = True
+            if 500 < mx < 600 and 100 < my < 200:
+                ing15 = Ingredientes(GRAY, 100, 500)
+                all_sprites.add(ing15)
+                pygame.display.update()
+                q4 = True
+            if 650 < mx < 750 and 100 < my < 200:
+                ing16 = Ingredientes(OLIVE, 100, 650)
+                all_sprites.add(ing16)
+                pygame.display.update()
+                q5 = True
+            if 800 < mx < 900 and 100 < my < 200:
+                ing17 = Ingredientes(BLUE, 100, 800)
+                all_sprites.add(ing17)
+                pygame.display.update()
+                q6 = True
+        # screen.get_rect()
+            # if rect.left > 1000:
+                #dindin -= 100
+
+        # if q1==True and (bx-125)<mx<(bx-125) and (by-125)<my<(by-125):
+        #    ing1 = Ingredientes(RED, 100, 150)
+        #    pygame.display.update()
+        # if q2==True and (bx-125)<mx<(bx-125) and (by-125)<my<(by-125):
+        #    ing2 = Ingredientes(BLUE, 100, 450)
+        #    pygame.display.update()
+        # if q3==True and (bx-125)<mx<(bx-125) and (by-125)<my<(by-125):
+        #    ing3 = Ingredientes(GREEN, 100, 350)
+        #    pygame.display.update()
 
     all_sprites.update()
     screen.fill(WHITE)
