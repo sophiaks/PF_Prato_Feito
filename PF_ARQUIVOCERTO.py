@@ -5,6 +5,7 @@ from pygame.locals import *
 
 # Inicializa o jogo
 pygame.init()
+
 # FPS e o Clock
 FPS = 120
 fpsClock = pygame.time.Clock()
@@ -22,10 +23,10 @@ pygame.display.set_caption('Burrito Animado')
 tortilla = pygame.transform.scale(
     (pygame.image.load('tortilla.png')), (250, 250))
 
-bx = -150
-by = 400
+bx = 300
+by = -100
 dindin = 1000
-# cores
+# CORES
 BLACK = (0,   0,   0)
 GRAY = (96, 96, 96)
 WHITE = (255, 255, 255)
@@ -52,13 +53,10 @@ class Tortilla(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.x = y
         self.y = x
-        self.image = pygame.Surface((200, 200))
-        self.color = OLIVE
-        self.image.fill(self.color)
+        self.image = pygame.transform.scale(tortilla, (250, 250))
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
-        self.image = pygame.transform.scale(tortilla, (200, 200))
         self.radius = 100
 
     def update(self):
@@ -142,6 +140,6 @@ while True:
     all_sprites.update()
     screen.fill(WHITE)
     all_sprites.draw(screen)
-    screen.blit(tortilla.image, (bx, by))
+#screen.blit(tortilla.image, (bx, by))
     pygame.display.update()
     fpsClock.tick(FPS)
