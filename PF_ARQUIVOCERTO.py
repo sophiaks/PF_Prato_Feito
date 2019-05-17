@@ -1,3 +1,4 @@
+
 import pygame
 import sys
 from os import path
@@ -43,8 +44,8 @@ class Tortilla(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.x = y
         self.y = x
-        self.color = 
-        self.image = pygame.Surface(Tortilla.large_ing, Tortilla.alt_ing)
+        self.color = color
+        self.image = pygame.Surface(burrito.large_ing, burrito.alt_ing)
         self.image.fill(self.color)
         self.rect = self.image.get_rect()
         self.rect.x = self.x
@@ -88,7 +89,7 @@ screen.fill(WHITE)
 
 while True:
     bx += 1
-    screen.blit(Tortilla, (bx, by))
+    screen.blit(burrito, (bx, by))
 
     for event in pygame.event.get():
         if event.type == QUIT:
@@ -128,16 +129,21 @@ while True:
                 all_sprites.add(ing17)
                 pygame.display.update()
                 q6=True
-'''                
-        if q1==True and :
-            ing1 = Ingredientes(RED, 100, 150)
-        if q2==True and :
-            ing2 = Ingredientes(BLUE, 100, 450)
-        if q3==True and :
-'''                
+                
+
+        #if q1==True and (bx-125)<mx<(bx-125) and (by-125)<my<(by-125):
+        #    ing1 = Ingredientes(RED, 100, 150)
+        #    pygame.display.update()
+        #if q2==True and (bx-125)<mx<(bx-125) and (by-125)<my<(by-125):
+        #    ing2 = Ingredientes(BLUE, 100, 450)
+        #    pygame.display.update()
+        #if q3==True and (bx-125)<mx<(bx-125) and (by-125)<my<(by-125):
+        #    ing3 = Ingredientes(GREEN, 100, 350)
+        #    pygame.display.update()          
+    
     all_sprites.update()
     screen.fill(WHITE)
     all_sprites.draw(screen)
-    screen.blit(Tortilla, (bx, by))
+    screen.blit(burrito, (bx, by))
     pygame.display.update()
     fpsClock.tick(FPS)
