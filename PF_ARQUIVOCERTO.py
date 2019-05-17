@@ -21,6 +21,7 @@ burrito = pygame.transform.scale(
 
 bx = -150
 by = 400
+dindin = 1000
 # cores
 BLACK = (0,   0,   0)
 GRAY = (96, 96, 96)
@@ -129,6 +130,9 @@ while True:
                 all_sprites.add(ing17)
                 pygame.display.update()
                 q6=True
+        #screen.get_rect()
+            #if rect.left > 1000:
+                #dindin -= 100
                 
 
         #if q1==True and (bx-125)<mx<(bx-125) and (by-125)<my<(by-125):
