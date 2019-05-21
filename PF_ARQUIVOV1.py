@@ -6,6 +6,7 @@ from pygame.locals import *
 
 # Inicializa o jogo
 pygame.init()
+pygame.mixer.init()
 # FPS e o Clock
 FPS = 120
 fpsClock = pygame.time.Clock()
@@ -36,11 +37,8 @@ OLIVE = (128, 128, 0)
 GOLD = (255, 215, 0)
 PINK = (255, 51, 153)
 
-# Desenhando o retângulo de ingredientes
 
 # Classe da tortilla
-
-
 class Tortilla(pygame.sprite.Sprite):
     def __init__(self, color, x, y):
         pygame.sprite.Sprite.__init__(self)
@@ -52,10 +50,11 @@ class Tortilla(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
-        self.image = pygame.transform.scale(player_img, (200, 200))
+        self.image = pygame.transform.scale(Tortilla, (200, 200))
         self.radius = 100
+        self.rect.center = screen.rect.center
 
-# Classe de ingredientes?
+# Classe de ingredientes
 
 
 class Ingredientes(pygame.sprite.Sprite):
@@ -75,6 +74,7 @@ class Ingredientes(pygame.sprite.Sprite):
         self.rect.y = self.y
 
 
+# Adicionando as sprites
 all_sprites = pygame.sprite.Group()
 ing1 = Ingredientes(RED, 100, 50)
 ing2 = Ingredientes(BLUE, 100, 200)
@@ -83,6 +83,8 @@ ing4 = Ingredientes(BLACK, 100, 500)
 ing5 = Ingredientes(GOLD, 100, 650)
 ing6 = Ingredientes(PINK, 100, 800)
 all_sprites.add(ing1, ing2, ing3, ing4, ing5, ing6)
+
+all_sprites.add(burrito)
 
 
 screen.fill(WHITE)
@@ -131,19 +133,11 @@ while True:
                 all_sprites.add(ing17)
                 pygame.display.update()
                 q6 = True
-        # screen.get_rect()
-            # if rect.left > 1000:
-                #dindin -= 100
-
-        # if q1==True and (bx-125)<mx<(bx-125) and (by-125)<my<(by-125):
-        #    ing1 = Ingredientes(RED, 100, 150)
-        #    pygame.display.update()
-        # if q2==True and (bx-125)<mx<(bx-125) and (by-125)<my<(by-125):
-        #    ing2 = Ingredientes(BLUE, 100, 450)
-        #    pygame.display.update()
-        # if q3==True and (bx-125)<mx<(bx-125) and (by-125)<my<(by-125):
-        #    ing3 = Ingredientes(GREEN, 100, 350)
-        #    pygame.display.update()
+            if Tortilla.left <= pygame.mouse.get_pos()[0] <= Tortilla.top:
+                ing17 = Ingredientes(BLACK, 100, 800)
+                pygame.display.update()
+        # if tortilla.left > 1000:
+        #     dindin -= 100
 
     all_sprites.update()
     screen.fill(WHITE)
@@ -151,3 +145,4 @@ while True:
     screen.blit(burrito, (bx, by))
     pygame.display.update()
     fpsClock.tick(FPS)
+    sprites()
