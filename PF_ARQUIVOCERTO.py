@@ -5,108 +5,149 @@ from pygame.locals import *
 
 # Inicializa o jogo
 pygame.init()
+pygame.mixer.init()
 # FPS e o Clock
 FPS = 120
 fpsClock = pygame.time.Clock()
-
-# janela (screen)
+listaing = [arroz, feijao, peixe, cogumelo, alface]
+listacomb = random.randint
+vel = 1
+# Lista de ingredientes no menu
+# janela(screen)
+# if toggle_fullscreen.full:
+#     screen_res = pygame.display.set_mode((1000, 750), 0, 32), pygame.FULLSCREEN)
+# else:
+#     screen_res=pygame/display.set_mode((1000, 750), 0, 32)
+#     toggle_fullscreen.full=not toggle_fullscreen.full
 
 screen = pygame.display.set_mode((1000, 750), 0, 32)
 
 pygame.display.set_caption('Burrito Animado')
 
-burrito = pygame.transform.scale(
+tortilla = pygame.transform.scale(
     (pygame.image.load('tortilla.png')), (250, 250))
 
-bx = -150
-by = 400
-
-# cores
+bx = 300
+by = -100
+dindin = 1000
+# CORES
 BLACK = (0,   0,   0)
+GRAY = (96, 96, 96)
 WHITE = (255, 255, 255)
 RED = (255,   0,   0)
+DARK_RED = (153, 0, 0)
 GREEN = (0, 255,   0)
+DARK_GREEN = (0, 102, 0)
 BLUE = (0,   0, 255)
+NAVY = (0, 0, 102)
 OLIVE = (128, 128, 0)
 GOLD = (255, 215, 0)
 PINK = (255, 51, 153)
+ORANGE = (255, 140, 0)
+BROWN = (139, 69, 19)
 
 # Desenhando o retângulo de ingredientes
 
-# Classe de ingredientes?
+# Classe da tortilla
 
 
-class Ingredientes(pygame.sprite.Sprite):
-    larg_ing = 100
-    alt_ing = 100
+class Tortilla(pygame.sprite.Sprite):
 
-    def __init__(self, color, x, y):
+    def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
         self.x = y
         self.y = x
+        self.image = pygame.transform.scale(tortilla, (250, 250))
+        self.rect = self.image.get_rect()
+        self.rect.x = self.x
+        self.rect.y = self.y
+        self.radius = 100
+
+
+def update(self):
+    self.rect.x += vel
+
+    # def troca_ingrediente(self):
+    # Classe de ingredientes
+
+
+class Ingrediente(pygame.sprite.Sprite):
+    larg_ing = 100
+    alt_ing = 100
+
+    def __init__(self, color, color_selecionado, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        self.x = y
+        self.y = x
+        self.color_selecionado = color_selecionado
         self.color = color
         self.image = pygame.Surface(
-            (Ingredientes.larg_ing, Ingredientes.alt_ing))
+            (Ingrediente.larg_ing, Ingrediente.alt_ing))
         self.image.fill(self.color)
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
 
+    def selecionado(self):
+        self.image.fill(self.color_selecionado)
+
+    def nao_selecionado(self):
+        self.image.fill(self.color)
+
 
 all_sprites = pygame.sprite.Group()
-ing1 = Ingredientes(RED, 100, 50)
-ing2 = Ingredientes(BLUE, 100, 200)
-ing3 = Ingredientes(GREEN, 100, 350)
-ing4 = Ingredientes(BLACK, 100, 500)
-ing5 = Ingredientes(GOLD, 100, 650)
-ing6 = Ingredientes(PINK, 100, 800)
-all_sprites.add(ing1, ing2, ing3, ing4, ing5, ing6)
+ingredientes = []
+ingredientes.append(Ingrediente(RED, DARK_RED, 100, 50))
+ingredientes.append(Ingrediente(BLUE, DARK_RED, 100, 200))
+ingredientes.append(Ingrediente(GREEN, DARK_RED, 100, 350))
+ingredientes.append(Ingrediente(BLACK, DARK_RED, 100, 500))
+ingredientes.append(Ingrediente(GOLD, DARK_RED, 100, 650))
+ingredientes.append(Ingrediente(PINK, DARK_RED, 100, 800))
+for i in ingredientes:
+    all_sprites.add(i)
+ingrediente_selecionado = None
 
+tortilla = Tortilla(bx, by)
+all_sprites.add(tortilla)
 
 screen.fill(WHITE)
 
 # Loop principal
 
 while True:
-    bx += 1
-    screen.blit(burrito, (bx, by))
 
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
             sys.exit(0)
 
+# Se a pessoa clicar com o mouse:
         if event.type == pygame.MOUSEBUTTONDOWN:
             mx, my = pygame.mouse.get_pos()
-            print(mx, my)
-            if 50 < mx < 150 and 100 < my < 200:
-                ing12 = Ingredientes(OLIVE, 100, 50)
-                all_sprites.add(ing12)
-                pygame.display.update()
-            if 200 < mx < 300 and 100 < my < 200:
-                ing13 = Ingredientes(OLIVE, 100, 200)
-                all_sprites.add(ing13)
-                pygame.display.update()
-            if 350 < mx < 450 and 100 < my < 200:
-                ing14 = Ingredientes(OLIVE, 100, 350)
-                all_sprites.add(ing14)
-                pygame.display.update()
-            if 500 < mx < 600 and 100 < my < 200:
-                ing15 = Ingredientes(OLIVE, 100, 500)
-                all_sprites.add(ing15)
-                pygame.display.update()
-            if 650 < mx < 750 and 100 < my < 200:
-                ing16 = Ingredientes(OLIVE, 100, 650)
-                all_sprites.add(ing16)
-                pygame.display.update()
-            if 800 < mx < 900 and 100 < my < 200:
-                ing17 = Ingredientes(OLIVE, 100, 800)
-                all_sprites.add(ing17)
-                pygame.display.update()
+# Para cada ingrediente na lista de ingredientes se a pessoa clicar dentro do retângulo do ingrediente
+            for ing in ingredientes:
+                r = ing.rect
+                if r.x <= mx and mx <= r.x + 100 and r.y <= my and my <= r.y + 100:
+                    ingrediente_selecionado = ing
+                    ing.selecionado()
+                    pygame.display.update()
+                    break
+
+        if event.type == pygame.MOUSEBUTTONDOWN and ingrediente_selecionado is not None:
+            cx, cy = pygame.mouse.get_pos()
+            t = tortilla.rect
+            for ing in ingredientes:
+                if t.x <= cx and cx <= t.x+250 and t.y <= cy and cy <= t.y + 250:
+                    print("acertei")
+                    ing_teste = ingrediente_selecionado
+                    ing.nao_selecionado()
+                    pygame.display.update()
+                    ingrediente_selecionado = None
+        if listacomb == []:
+            vel += 1
 
     all_sprites.update()
     screen.fill(WHITE)
     all_sprites.draw(screen)
-    screen.blit(burrito, (bx, by))
     pygame.display.update()
     fpsClock.tick(FPS)
