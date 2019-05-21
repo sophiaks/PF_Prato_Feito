@@ -130,7 +130,7 @@ class Ingrediente(pygame.sprite.Sprite):
         self.image.fill(self.color_selecionado)
 
     def nao_selecionado(self):
-        self.imgae.fill(self.color)
+        self.image.fill(self.color)
 
 all_sprites = pygame.sprite.Group()
 ingredientes = []
@@ -174,22 +174,28 @@ while True:
             cx, cy = pygame.mouse.get_pos()
             t = tortilla.rect
             if t.x <= cx and cx <= t.x+250 and t.y <= cy and cy <= t.y + 250:
-                if ingrediente_selecionado == ing:
-                    print ("ing 2")
-                    tortilla = tortilla2
+                if r.x <= mx and mx <= r.x + 100 and r.y <= my and my <= r.y + 100:
+                    ingrediente_selecionado = ing
+                    ing.selecionado()
+                    ing.nao_selecionado()
                     pygame.display.update()
-                if ingrediente_selecionado == Ingrediente(GREEN, DARK_GREEN, 100, 350):
-                    print ("ing 3")
-                    tortilla = tortilla3
-                    pygame.display.update()
-                if ingrediente_selecionado == Ingrediente(BLACK, GRAY, 100, 500):
-                    print ("ing 4")
-                    tortilla = tortilla4
-                    pygame.display.update()
-                if ingrediente_selecionado == Ingrediente(GOLD, NAVY, 100, 650):
-                    print ("ing 5")
-                    tortilla = tortilla5
-                    pygame.display.update()
+                    break
+                # if ingrediente_selecionado == ing:
+                #     print ("ing 2")
+                #     tortilla = tortilla2
+                #     pygame.display.update()
+                # if ingrediente_selecionado == Ingrediente(GREEN, DARK_GREEN, 100, 350):
+                #     print ("ing 3")
+                #     tortilla = tortilla3
+                #     pygame.display.update()
+                # if ingrediente_selecionado == Ingrediente(BLACK, GRAY, 100, 500):
+                #     print ("ing 4")
+                #     tortilla = tortilla4
+                #     pygame.display.update()
+                # if ingrediente_selecionado == Ingrediente(GOLD, NAVY, 100, 650):
+                #     print ("ing 5")
+                #     tortilla = tortilla5
+                #     pygame.display.update()
         # if listacomb == []:
         #     vel += 1
         # if num_menu == 1:
