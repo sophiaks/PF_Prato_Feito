@@ -21,7 +21,8 @@ pygame.display.set_caption('Burrito Animado')
 
 tortilla = pygame.transform.scale(
     (pygame.image.load('tortilla.png')), (250, 250))
-esteira = pygame.transform.scale((pygame.image.load('esteirapixel.png')),(250,300))
+esteira = pygame.transform.scale(
+    (pygame.image.load('esteirapixel.png')), (250, 300))
 
 bx = 300
 by = -100
@@ -45,6 +46,7 @@ BROWN = (139, 69, 19)
 # Desenhando o retângulo de ingredientes
 
 # Classe da tortilla
+
 
 class Tortilla(pygame.sprite.Sprite):
 
@@ -83,6 +85,7 @@ class Tortilla(pygame.sprite.Sprite):
         self.rect.center = center
 
 
+
 tortilla2 = pygame.transform.scale(
     (pygame.image.load('AF.png')), (250, 250))
 tortilla3 = pygame.transform.scale(
@@ -95,6 +98,7 @@ tortilla5 = pygame.transform.scale(
 
 # Classe da esteira
 
+
 class Esteira(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
@@ -106,6 +110,7 @@ class Esteira(pygame.sprite.Sprite):
         self.rect.y = self.y
 
 # Classe de ingredientes
+
 
 class Ingrediente(pygame.sprite.Sprite):
     larg_ing = 100
@@ -132,6 +137,7 @@ class Ingrediente(pygame.sprite.Sprite):
     def nao_selecionado(self):
         self.image.fill(self.color)
 
+
 all_sprites = pygame.sprite.Group()
 ingredientes = []
 ingredientes.append(Ingrediente(RED, DARK_RED, 100, 50, 'A'))
@@ -157,7 +163,7 @@ while True:
         if event.type == QUIT:
             pygame.quit()
             sys.exit(0)
-        
+
     # Se a pessoa clicar com o mouse:
         if event.type == pygame.MOUSEBUTTONDOWN:
             mx, my = pygame.mouse.get_pos()
@@ -170,7 +176,7 @@ while True:
                     pygame.display.update()
                     break
 
-        if event.type == pygame.MOUSEBUTTONDOWN and ingrediente_selecionado is not None: 
+        if event.type == pygame.MOUSEBUTTONDOWN and ingrediente_selecionado is not None:
             cx, cy = pygame.mouse.get_pos()
             t = tortilla.rect
             if t.x <= cx and cx <= t.x+250 and t.y <= cy and cy <= t.y + 250:
@@ -179,13 +185,9 @@ while True:
         # if listacomb == []:
         #     vel += 1
         # if num_menu == 1:
-
         # if num_menu == 2:
-
         # if num_menu == 3:
-
         # if num_menu == 4:
-            
         # if num_menu == 5:
 
     all_sprites.update()
