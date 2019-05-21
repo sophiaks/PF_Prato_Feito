@@ -9,7 +9,8 @@ pygame.mixer.init()
 # FPS e o Clock
 FPS = 120
 fpsClock = pygame.time.Clock()
-
+listaing = []
+listacomb = []
 # Lista de ingredientes no menu
 # janela(screen)
 # if toggle_fullscreen.full:
@@ -61,8 +62,8 @@ class Tortilla(pygame.sprite.Sprite):
         self.rect.y = self.y
         self.radius = 100
 
-    def update(self):
-        self.rect.x += 1
+def update(self):
+        self.rect.x += vel
 
     # def troca_ingrediente(self):
         # Classe de ingredientes
@@ -140,6 +141,8 @@ while True:
                     ing.nao_selecionado()
                     pygame.display.update()
                     ingrediente_selecionado = None
+        if listacomb == []:
+            vel += 1
 
     all_sprites.update()
     screen.fill(WHITE)
