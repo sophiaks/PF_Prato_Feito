@@ -5,17 +5,17 @@ from pygame.locals import *
 
 # Inicializa o jogo
 pygame.init()
-
+pygame.mixer.init()
 # FPS e o Clock
 FPS = 120
 fpsClock = pygame.time.Clock()
 
-# janela (screen)
+# janela(screen)
 # if toggle_fullscreen.full:
-#     screen_res = pygame.display.set_mode((1000, 750), 0, 32),pygame.FULLSCREEN)
+#     screen_res = pygame.display.set_mode((1000, 750), 0, 32), pygame.FULLSCREEN)
 # else:
-#     screen_res = pygame/display.set_mode((1000, 750), 0, 32)
-#     toggle_fullscreen.full = not toggle_fullscreen.full
+#     screen_res=pygame/display.set_mode((1000, 750), 0, 32)
+#     toggle_fullscreen.full=not toggle_fullscreen.full
 screen = pygame.display.set_mode((1000, 750), 0, 32)
 
 pygame.display.set_caption('Burrito Animado')
@@ -63,9 +63,7 @@ class Tortilla(pygame.sprite.Sprite):
         self.rect.x += 1
 
     # def troca_ingrediente(self):
-    #     //TODO
-
-        # Classe de ingredientes?
+        # Classe de ingredientes
 
 
 class Ingrediente(pygame.sprite.Sprite):
@@ -87,6 +85,9 @@ class Ingrediente(pygame.sprite.Sprite):
 
     def selecionado(self):
         self.image.fill(self.color_selecionado)
+
+    def nao_selecionado(self):
+        self.image.fill(self.color)
 
 
 all_sprites = pygame.sprite.Group()
@@ -114,11 +115,11 @@ while True:
         if event.type == QUIT:
             pygame.quit()
             sys.exit(0)
-        
+
+# Se a pessoa clicar com o mouse:
         if event.type == pygame.MOUSEBUTTONDOWN:
             mx, my = pygame.mouse.get_pos()
-            
-            
+# Para cada ingrediente na lista de ingredientes se a pessoa clicar dentro do retângulo do ingrediente
             for ing in ingredientes:
                 r = ing.rect
                 if r.x <= mx and mx <= r.x + 100 and r.y <= my and my <= r.y + 100:
@@ -127,19 +128,20 @@ while True:
                     pygame.display.update()
                     break
 
-        if event.type == pygame.MOUSEBUTTONDOWN and ingrediente_selecionado is not None: 
+        if event.type == pygame.MOUSEBUTTONDOWN and ingrediente_selecionado is not None:
             cx, cy = pygame.mouse.get_pos()
             t = tortilla.rect
-            if t.x <= cx and cx <= t.x+250 and t.y <= cy and cy <= t.y + 250:
-                print("acertei")
-                ing_teste = ingrediente_selecionado
-                #all_sprites.add(ing_teste)
-                pygame.display.update()
-                ingrediente_selecionado = None        
+            for ing in ingredientes:
+                if t.x <= cx and cx <= t.x+250 and t.y <= cy and cy <= t.y + 250:
+                    print("acertei")
+                    ing_teste = ingrediente_selecionado
+                    ing.nao_selecionado()
+                    # all_sprites.add(ing_teste)
+                    pygame.display.update()
+                    ingrediente_selecionado = None
 
     all_sprites.update()
     screen.fill(WHITE)
     all_sprites.draw(screen)
-#screen.blit(tortilla.image, (bx, by))
     pygame.display.update()
     fpsClock.tick(FPS)
