@@ -27,7 +27,8 @@ pygame.display.set_caption('Burrito Animado')
 
 tortilla = pygame.transform.scale(
     (pygame.image.load('tortilla.png')), (250, 250))
-esteira = pygame.transform.scale((pygame.image.load('esteirapixel.png')),(250,300))
+esteira = pygame.transform.scale(
+    (pygame.image.load('esteirapixel.png')), (250, 300))
 
 bx = 300
 by = -100
@@ -52,6 +53,7 @@ BROWN = (139, 69, 19)
 
 # Classe da tortilla
 
+
 class Tortilla(pygame.sprite.Sprite):
 
     def __init__(self, x, y):
@@ -66,7 +68,7 @@ class Tortilla(pygame.sprite.Sprite):
     def update(self):
         self.rect.x += vel
 
-    def troca_ingrediente(self, x , y):
+    def troca_ingrediente(self, x, y):
 
         tortilla2 = pygame.transform.scale(
             (pygame.image.load('AF.png')), (250, 250))
@@ -76,6 +78,7 @@ class Tortilla(pygame.sprite.Sprite):
             (pygame.image.load('AFAC.png')), (250, 250))
         tortilla5 = pygame.transform.scale(
             (pygame.image.load('AFACP.png')), (250, 250))
+
 
 tortilla2 = pygame.transform.scale(
     (pygame.image.load('AF.png')), (250, 250))
@@ -97,6 +100,7 @@ tortilla5 = pygame.transform.scale(
 
 # Classe da esteira
 
+
 class Esteira(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
@@ -108,6 +112,7 @@ class Esteira(pygame.sprite.Sprite):
         self.rect.y = self.y
 
 # Classe de ingredientes
+
 
 class Ingrediente(pygame.sprite.Sprite):
     larg_ing = 100
@@ -131,6 +136,7 @@ class Ingrediente(pygame.sprite.Sprite):
 
     def nao_selecionado(self):
         self.imgae.fill(self.color)
+
 
 all_sprites = pygame.sprite.Group()
 ingredientes = []
@@ -157,7 +163,7 @@ while True:
         if event.type == QUIT:
             pygame.quit()
             sys.exit(0)
-        
+
     # Se a pessoa clicar com o mouse:
         if event.type == pygame.MOUSEBUTTONDOWN:
             mx, my = pygame.mouse.get_pos()
@@ -170,36 +176,32 @@ while True:
                     pygame.display.update()
                     break
 
-        if event.type == pygame.MOUSEBUTTONDOWN and ingrediente_selecionado is not None: 
+        if event.type == pygame.MOUSEBUTTONDOWN and ingrediente_selecionado is not None:
             cx, cy = pygame.mouse.get_pos()
             t = tortilla.rect
             if t.x <= cx and cx <= t.x+250 and t.y <= cy and cy <= t.y + 250:
                 if ingrediente_selecionado == ing:
-                    print ("ing 2")
+                    print("ing 2")
                     tortilla = tortilla2
                     pygame.display.update()
                 if ingrediente_selecionado == Ingrediente(GREEN, DARK_GREEN, 100, 350):
-                    print ("ing 3")
+                    print("ing 3")
                     tortilla = tortilla3
                     pygame.display.update()
                 if ingrediente_selecionado == Ingrediente(BLACK, GRAY, 100, 500):
-                    print ("ing 4")
+                    print("ing 4")
                     tortilla = tortilla4
                     pygame.display.update()
                 if ingrediente_selecionado == Ingrediente(GOLD, NAVY, 100, 650):
-                    print ("ing 5")
+                    print("ing 5")
                     tortilla = tortilla5
                     pygame.display.update()
         # if listacomb == []:
         #     vel += 1
         # if num_menu == 1:
-
         # if num_menu == 2:
-
         # if num_menu == 3:
-
         # if num_menu == 4:
-            
         # if num_menu == 5:
 
     all_sprites.update()
