@@ -1,1 +1,0 @@
-screen.blit(tortilla.image, (bx, by))
