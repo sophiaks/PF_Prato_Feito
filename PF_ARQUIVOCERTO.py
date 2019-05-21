@@ -10,7 +10,8 @@ pygame.mixer.init()
 FPS = 120
 fpsClock = pygame.time.Clock()
 listaing = [arroz, feijao, peixe, cogumelo, alface]
-listacomb = random.randint
+num_menu = random.randint(1,5)
+lista_comb = []
 vel = 1
 # Lista de ingredientes no menu
 # janela(screen)
@@ -145,6 +146,15 @@ while True:
                     ingrediente_selecionado = None
         if listacomb == []:
             vel += 1
+        if num_menu == 1:
+
+        if num_menu == 2:
+
+        if num_menu == 3:
+
+        if num_menu == 4:
+            
+        if num_menu == 5:
 
     all_sprites.update()
     screen.fill(WHITE)
