@@ -10,12 +10,14 @@ pygame.mixer.init()
 FPS = 120
 fpsClock = pygame.time.Clock()
 
+# Lista de ingredientes no menu
 # janela(screen)
 # if toggle_fullscreen.full:
 #     screen_res = pygame.display.set_mode((1000, 750), 0, 32), pygame.FULLSCREEN)
 # else:
 #     screen_res=pygame/display.set_mode((1000, 750), 0, 32)
 #     toggle_fullscreen.full=not toggle_fullscreen.full
+
 screen = pygame.display.set_mode((1000, 750), 0, 32)
 
 pygame.display.set_caption('Burrito Animado')
@@ -136,7 +138,6 @@ while True:
                     print("acertei")
                     ing_teste = ingrediente_selecionado
                     ing.nao_selecionado()
-                    # all_sprites.add(ing_teste)
                     pygame.display.update()
                     ingrediente_selecionado = None
 
