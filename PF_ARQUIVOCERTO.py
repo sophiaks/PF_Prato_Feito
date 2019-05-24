@@ -20,10 +20,7 @@ pygame.display.set_caption('Burrito Animado')
 
 tortilla = pygame.transform.scale(
     pygame.image.load('tortilla.png'), (250, 250))
-esteira = pygame.transform.scale(
-    pygame.image.load('esteirapixel.png'), (1000, 300))
-arroz = pygame.transform.scale(
-    pygame.image.load('arroz.png'), (20, 20))
+
 
 bx = 300
 by = -100
@@ -64,9 +61,9 @@ class Tortilla(pygame.sprite.Sprite):
         self.image.set_colorkey(BLACK)
 
         #Carregar as imagens
-        lista = ['A']
+        lista = ['A', 'AFP', 'AFPC', 'AF', 'AFPCC', 'S', 'SF', 'SFA', 'SFAC', 'SFACP', 'SS', 'SSP', 'SSPC', 'SSPCC']
         self.images = {}
-        for nome in lista:
+        for nome in lista_ingredientes:
             self.images[nome] = pygame.transform.scale(pygame.image.load('{0}.png'.format(nome)), (20, 20))
         self.images['ERRO'] = pygame.image.load('ERRO.png').convert()
 
@@ -91,24 +88,13 @@ class Tortilla(pygame.sprite.Sprite):
         self.rect = self.image
         self.rect.center = center
 
-
-
-# tortilla2 = pygame.transform.scale(
-#     pygame.image.load('AF.png').convert(), (250, 250))
-# tortilla3 = pygame.transform.scale(
-#     pygame.image.load('AFA.png').convert(), (250, 250))
-# tortilla4 = pygame.transform.scale(
-#     pygame.image.load('AFAC.png').convert(), (250, 250))
-# tortilla5 = pygame.transform.scale(
-#     pygame.image.load('AFACP.png').convert(), (250, 250))
-
-
 # Classe da esteira
 class Esteira(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
-        self.x = y
-        self.y = x
+        self.x = x
+        self.y = y
+        esteira = pygame.transform.scale(pygame.image.load('esteirapixel.png'), (1000, 300))
         self.image = pygame.transform.scale(esteira, (1000, 300))
         self.rect = self.image.get_rect()
         self.rect.x = self.x
@@ -120,10 +106,11 @@ class Ingrediente(pygame.sprite.Sprite):
     alt_ing = 100
     def __init__(self, image, x, y, letra):
         pygame.sprite.Sprite.__init__(self)
-        self.x = y
-        self.y = x
-        for ingrediente in lista_ingredientes:
-            self.image = pygame.image.load('{0}.png'.format(ingrediente)).convert()
+        self.x = x
+        self.y = y
+        #for ingrediente in lista_ingredientes:
+        self.image = pygame.image.load(image).convert_alpha()
+        self.image = pygame.transform.scale(self.image, (100, 100))
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
@@ -138,14 +125,17 @@ class Ingrediente(pygame.sprite.Sprite):
 
 all_sprites = pygame.sprite.Group()
 ingredientes = []
-ingredientes.append(Ingrediente('arroz.png', 100, 50, 'A'))
-ingredientes.append(Ingrediente('alface.png', 100, 200, 'S'))
-ingredientes.append(Ingrediente('cogumelo.png', 100, 350, 'C'))
-ingredientes.append(Ingrediente('peixe.png', 100, 500, 'P'))
-ingredientes.append(Ingrediente("feijao.png", 100, 650, 'F'))
+ingredientes.append(Ingrediente('arroz.png', 50, 100, 'A'))
+ingredientes.append(Ingrediente('salada.png', 200, 100, 'S'))
+ingredientes.append(Ingrediente('cogumelo.png', 350, 100, 'C'))
+ingredientes.append(Ingrediente('peixe.png', 500, 100, 'P'))
+ingredientes.append(Ingrediente("feijao.png", 650, 100, 'F'))
 for i in ingredientes:
     all_sprites.add(i)
 ingrediente_selecionado = None
+
+esteira = Esteira(0, 400)
+all_sprites.add(esteira)
 
 tortilla = Tortilla(bx, by)
 all_sprites.add(tortilla)
@@ -153,6 +143,7 @@ all_sprites.add(tortilla)
 # tela de fundo
 background = pygame.image.load('planofundo.png').convert()
 background_rect = background.get_rect()
+
 
 # Loop principal
 
@@ -173,52 +164,39 @@ try:
                     r = ing.rect
                     if r.x <= mx and mx <= r.x + 100 and r.y <= my and my <= r.y + 100:
                         print("click")
-                        tortilla.troca_ingrediente(ingrediente_selecionado.letra)
-                    if ingrediente_selecionado == ing:
-                        #Atualiza o combo
-                        pygame.display.update()
-                    if ingrediente_selecionado == Ingrediente('arroz.png', 100, 350, 'A'):
-                        print("arroz")
-                        #Atualiza o combo
-                        tortilla.troca_ingrediente(ingrediente_selecionado.letra)
-                        pygame.display.update()
-                    if ingrediente_selecionado == Ingrediente('salada.png', 100, 500, 'S'):
-                        print("salada")
-                        #Atualiza o combo
-                        pygame.display.update()
-                    if ingrediente_selecionado == Ingrediente('cogumelo.png', 100, 650, 'C'):
-                        print("cogumelo")
-                        #Atualiza o combo 
-                        pygame.display.update()
-                        break
+                        ing = ingrediente_selecionado
+                    #Selecionou o arroz
+                        if ingrediente_selecionado == Ingrediente('{0}.png'.format(ing), 100, 350, ingrediente_selecionado.letra):
+                            print("arroz")
+                            tortilla.troca_ingrediente(ingrediente_selecionado.letra)
+                            pygame.display.update()
+                        #Selecionou a salada
+                        if ingrediente_selecionado == Ingrediente('salada.png', 100, 500, 'S'):
+                            print("salada")
+                            pygame.display.update()
+                        #Selecionou o cogumelo
+                        if ingrediente_selecionado == Ingrediente('cogumelo.png', 100, 650, 'C'):
+                            print("cogumelo")
+                            pygame.display.update()
+                        #Selecionou o feijao
+                        if ingrediente_selecionado == Ingrediente('feijao.png', 100, 800, 'F'):
+                            print("feijao")
+                            pygame.display.update()
+                        #Selecionou o peixe
+                        if ingrediente_selecionado == Ingrediente('peixe.png', 100, 950, 'p'):
+                            print("peixe")
+                            pygame.display.update()
+                            break
 
             if event.type == pygame.MOUSEBUTTONDOWN and ingrediente_selecionado is not None:
                 cx, cy = pygame.mouse.get_pos()
                 t = tortilla.rect
+                print(cx,cy)
                 if t.x <= cx and cx <= t.x+250 and t.y <= cy and cy <= t.y + 250:
-                    Tortilla.image = Tortilla.combo
-                    #  for ing in ingredientes:
-                    #     if ingrediente_selecionado == ing:
-                    #         print("ing 2")
-                    #         tortilla = tortilla2
-                    #         ing.nao_selecionado()
-                    #         pygame.display.update()
-                    #     if ingrediente_selecionado == Ingrediente(GREEN, DARK_GREEN, 100, 350):
-                    #         print("ing 3")
-                    #         tortilla = tortilla3
-                    #         ing.nao_selecionado()
-                    #         pygame.display.update()
-                    #     if ingrediente_selecionado == Ingrediente(BLACK, GRAY, 100, 500):
-                    #         print("ing 4")
-                    #         tortilla = tortilla4
-                    #         ing.nao_selecionado()
-                    #         pygame.display.update()
-                    #     if ingrediente_selecionado == Ingrediente(GOLD, NAVY, 100, 650):
-                    #         print("ing 5")
-                    #         tortilla = tortilla5
-                    #         ing.nao_selecionado()
-                    #         pygame.display.update()
-                            
+                    tortilla.troca_ingrediente(ingrediente_selecionado.letra)
+                    print("BIA DEU CERTO")
+                    print('uhullll')
+
             # if listacomb == []:
             # if num_menu == 2:
         screen.blit(background, background_rect)
@@ -226,6 +204,6 @@ try:
         all_sprites.draw(screen)
         fpsClock.tick(FPS)
         pygame.display.update()
-except:
+finally:
     pygame.quit()
     sys.exit(0)
