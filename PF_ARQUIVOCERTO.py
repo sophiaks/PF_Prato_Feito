@@ -14,7 +14,6 @@ fpsClock = pygame.time.Clock()
 #listacomb = random.randint
 vel = 1
 
-
 screen = pygame.display.set_mode((1000, 750), 0, 32)
 
 pygame.display.set_caption('Burrito Animado')
@@ -96,9 +95,8 @@ tortilla5 = pygame.transform.scale(
     (pygame.image.load('AFACP.png')), (250, 250))
 
 
+
 # Classe da esteira
-
-
 class Esteira(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
