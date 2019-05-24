@@ -13,13 +13,7 @@ fpsClock = pygame.time.Clock()
 #listaing = [arroz, feijao, peixe, cogumelo, alface]
 #listacomb = random.randint
 vel = 1
-# Lista de ingredientes no menu
-# janela (screen)
-# if toggle_fullscreen.full:
-#     screen_res = pygame.display.set_mode((1000, 750), 0, 32),pygame.FULLSCREEN)
-# else:
-#     screen_res = pygame/display.set_mode((1000, 750), 0, 32)
-#     toggle_fullscreen.full = not toggle_fullscreen.full
+
 
 screen = pygame.display.set_mode((1000, 750), 0, 32)
 
@@ -66,19 +60,31 @@ class Tortilla(pygame.sprite.Sprite):
         self.rect.y = self.y
         self.screen_rect = screen.get_rect()
 
+        #Carregar as imagens
+        lista = ['A','AF','AFA', 'AFAC']
+        self.images = {}
+        for nome in lista:
+            self.images[nome] = pygame.image.load('{0}.png'.format(nome)).convert()
+        self.images['ERRO'] = pygame.image.load('ERRO.png').convert()
+
+        self.combo = ''
+
+
     def update(self):
         self.rect.x += vel
 
-    def troca_ingrediente(self, x, y):
+    def troca_ingrediente(self, ingrediente):
 
-        tortilla2 = pygame.transform.scale(
-            (pygame.image.load('AF.png')), (250, 250))
-        tortilla3 = pygame.transform.scale(
-            (pygame.image.load('AFA.png')), (250, 250))
-        tortilla4 = pygame.transform.scale(
-            (pygame.image.load('AFAC.png')), (250, 250))
-        tortilla5 = pygame.transform.scale(
-            (pygame.image.load('AFACP.png')), (250, 250))
+        self.combo += ingrediente
+
+        center = self.rect.center
+        if self.combo in self.images:
+            self.image = self.images[self.combo]
+        else:
+            self.image = self.images['ERRO']
+        self.rect = self.image
+        self.rect.center = center
+
 
 
 tortilla2 = pygame.transform.scale(
@@ -90,14 +96,6 @@ tortilla4 = pygame.transform.scale(
 tortilla5 = pygame.transform.scale(
     (pygame.image.load('AFACP.png')), (250, 250))
 
-# tortillas=[]
-# tortillas.append(Tortilla(tortilla, tortilla2))
-# tortillas.append(Tortilla(tortilla, tortilla3))
-# tortillas.append(Tortilla(tortilla, tortilla4))
-# tortillas.append(Tortilla(tortilla, tortilla5))
-# for i in tortillas:
-#     all_sprites.add(i)
-# nova_tortilla=None
 
 # Classe da esteira
 
@@ -119,7 +117,7 @@ class Ingrediente(pygame.sprite.Sprite):
     larg_ing = 100
     alt_ing = 100
 
-    def __init__(self, color, color_selecionado, x, y):
+    def __init__(self, color, color_selecionado, x, y, letra):
         pygame.sprite.Sprite.__init__(self)
         self.x = y
         self.y = x
@@ -132,6 +130,8 @@ class Ingrediente(pygame.sprite.Sprite):
         self.rect.x = self.x
         self.rect.y = self.y
 
+        self.letra = letra
+
     def selecionado(self):
         self.image.fill(self.color_selecionado)
 
@@ -141,12 +141,12 @@ class Ingrediente(pygame.sprite.Sprite):
 
 all_sprites = pygame.sprite.Group()
 ingredientes = []
-ingredientes.append(Ingrediente(RED, DARK_RED, 100, 50))
-ingredientes.append(Ingrediente(BLUE, OLIVE, 100, 200))
-ingredientes.append(Ingrediente(GREEN, DARK_GREEN, 100, 350))
-ingredientes.append(Ingrediente(BLACK, GRAY, 100, 500))
-ingredientes.append(Ingrediente(GOLD, NAVY, 100, 650))
-ingredientes.append(Ingrediente(PINK, BLACK, 100, 800))
+ingredientes.append(Ingrediente(RED, DARK_RED, 100, 50, 'A'))
+ingredientes.append(Ingrediente(BLUE, OLIVE, 100, 200, 'F'))
+ingredientes.append(Ingrediente(GREEN, DARK_GREEN, 100, 350, 'R'))
+ingredientes.append(Ingrediente(BLACK, GRAY, 100, 500, 'C'))
+ingredientes.append(Ingrediente(GOLD, NAVY, 100, 650, 'P'))
+ingredientes.append(Ingrediente(PINK, BLACK, 100, 800, 'G'))
 for i in ingredientes:
     all_sprites.add(i)
 ingrediente_selecionado = None
@@ -218,6 +218,8 @@ while True:
                 #     print ("ing 5")
                 #     tortilla = tortilla5
                 #     pygame.display.update()
+                tortilla.troca_ingrediente(ingrediente_selecionado.letra)
+
         # if listacomb == []:
         #     vel += 1
         # if num_menu == 1:
