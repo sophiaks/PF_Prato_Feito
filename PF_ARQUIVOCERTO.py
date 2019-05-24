@@ -64,6 +64,7 @@ class Tortilla(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
+        self.screen_rect = screen.get_rect()
 
     def update(self):
         self.rect.x += vel
@@ -180,27 +181,27 @@ while True:
             cx, cy = pygame.mouse.get_pos()
             t = tortilla.rect
             if t.x <= cx and cx <= t.x+250 and t.y <= cy and cy <= t.y + 250:
-                if ingrediente_selecionado == ing:
-                    print("ing 2")
-                    tortilla = tortilla2
-                    pygame.display.update()
-                if ingrediente_selecionado == Ingrediente(GREEN, DARK_GREEN, 100, 350):
-                    print("ing 3")
-                    tortilla = tortilla3
-                    pygame.display.update()
-                if ingrediente_selecionado == Ingrediente(BLACK, GRAY, 100, 500):
-                    print("ing 4")
-                    tortilla = tortilla4
-                    pygame.display.update()
-                if ingrediente_selecionado == Ingrediente(GOLD, NAVY, 100, 650):
-                    print("ing 5")
-                    tortilla = tortilla5
-                if r.x <= mx and mx <= r.x + 100 and r.y <= my and my <= r.y + 100:
-                    ingrediente_selecionado = ing
-                    ing.selecionado()
-                    ing.nao_selecionado()
-                    pygame.display.update()
-                    break
+                for ing in ingredientes:
+                    if ingrediente_selecionado == ing:
+                        print("ing 2")
+                        tortilla = tortilla2
+                        ing.nao_selecionado()
+                        pygame.display.update()
+                    if ingrediente_selecionado == Ingrediente(GREEN, DARK_GREEN, 100, 350):
+                        print("ing 3")
+                        tortilla = tortilla3
+                        ing.nao_selecionado()
+                        pygame.display.update()
+                    if ingrediente_selecionado == Ingrediente(BLACK, GRAY, 100, 500):
+                        print("ing 4")
+                        tortilla = tortilla4
+                        ing.nao_selecionado()
+                        pygame.display.update()
+                    if ingrediente_selecionado == Ingrediente(GOLD, NAVY, 100, 650):
+                        print("ing 5")
+                        tortilla = tortilla5
+                        ing.nao_selecionado()
+                        pygame.display.update()
                 # if ingrediente_selecionado == ing:
                 #     print ("ing 2")
                 #     tortilla = tortilla2
