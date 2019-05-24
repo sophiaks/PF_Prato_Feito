@@ -14,7 +14,6 @@ fpsClock = pygame.time.Clock()
 #listacomb = random.randint
 vel = 1
 
-
 screen = pygame.display.set_mode((1000, 750), 0, 32)
 
 pygame.display.set_caption('Burrito Animado')
@@ -58,17 +57,17 @@ class Tortilla(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
+        self.screen_rect = screen.get_rect()
 
-        #Carregar as imagens
-        lista = ['A','AF','AFA', 'AFAC']
+        # Carregar as imagens
+        lista = ['A', 'AF', 'AFA', 'AFAC']
         self.images = {}
         for nome in lista:
-            self.images[nome] = pygame.image.load('{0}.png'.format(nome)).convert()
+            self.images[nome] = pygame.image.load(
+                '{0}.png'.format(nome)).convert()
         self.images['ERRO'] = pygame.image.load('ERRO.png').convert()
-
         self.combo = ''
-
-
+        
     def update(self):
         self.rect.x += vel
 
@@ -85,7 +84,6 @@ class Tortilla(pygame.sprite.Sprite):
         self.rect.center = center
 
 
-
 tortilla2 = pygame.transform.scale(
     (pygame.image.load('AF.png')), (250, 250))
 tortilla3 = pygame.transform.scale(
@@ -97,8 +95,6 @@ tortilla5 = pygame.transform.scale(
 
 
 # Classe da esteira
-
-
 class Esteira(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
@@ -110,8 +106,6 @@ class Esteira(pygame.sprite.Sprite):
         self.rect.y = self.y
 
 # Classe de ingredientes
-
-
 class Ingrediente(pygame.sprite.Sprite):
     larg_ing = 100
     alt_ing = 100
@@ -180,6 +174,43 @@ while True:
             cx, cy = pygame.mouse.get_pos()
             t = tortilla.rect
             if t.x <= cx and cx <= t.x+250 and t.y <= cy and cy <= t.y + 250:
+                for ing in ingredientes:
+                    if ingrediente_selecionado == ing:
+                        print("ing 2")
+                        tortilla = tortilla2
+                        ing.nao_selecionado()
+                        pygame.display.update()
+                    if ingrediente_selecionado == Ingrediente(GREEN, DARK_GREEN, 100, 350, 'A'):
+                        print("ing 3")
+                        tortilla = tortilla3
+                        ing.nao_selecionado()
+                        pygame.display.update()
+                    if ingrediente_selecionado == Ingrediente(BLACK, GRAY, 100, 500, 'A'):
+                        print("ing 4")
+                        tortilla = tortilla4
+                        ing.nao_selecionado()
+                        pygame.display.update()
+                    if ingrediente_selecionado == Ingrediente(GOLD, NAVY, 100, 650, 'A'):
+                        print("ing 5")
+                        tortilla = tortilla5
+                        ing.nao_selecionado()
+                        pygame.display.update()
+                # if ingrediente_selecionado == ing:
+                #     print ("ing 2")
+                #     tortilla = tortilla2
+                #     pygame.display.update()
+                # if ingrediente_selecionado == Ingrediente(GREEN, DARK_GREEN, 100, 350):
+                #     print ("ing 3")
+                #     tortilla = tortilla3
+                #     pygame.display.update()
+                # if ingrediente_selecionado == Ingrediente(BLACK, GRAY, 100, 500):
+                #     print ("ing 4")
+                #     tortilla = tortilla4
+                #     pygame.display.update()
+                # if ingrediente_selecionado == Ingrediente(GOLD, NAVY, 100, 650):
+                #     print ("ing 5")
+                #     tortilla = tortilla5
+                #     pygame.display.update()
                 tortilla.troca_ingrediente(ingrediente_selecionado.letra)
 
         # if listacomb == []:
