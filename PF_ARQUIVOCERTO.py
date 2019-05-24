@@ -3,7 +3,6 @@ import sys
 from os import path
 from pygame.locals import *
 
-
 # Inicializa o jogo
 pygame.init()
 pygame.mixer.init()
@@ -67,7 +66,7 @@ class Tortilla(pygame.sprite.Sprite):
                 '{0}.png'.format(nome)).convert()
         self.images['ERRO'] = pygame.image.load('ERRO.png').convert()
         self.combo = ''
-        
+
     def update(self):
         self.rect.x += vel
 
