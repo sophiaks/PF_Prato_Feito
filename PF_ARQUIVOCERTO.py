@@ -63,7 +63,8 @@ class Tortilla(pygame.sprite.Sprite):
         lista = ['A','AF','AFA', 'AFAC', 'AFACP']
         self.images = {}
         for nome in lista:
-            self.images[nome] = pygame.image.load('{0}.png'.format(nome)).convert()
+            self.images[nome] = pygame.image.load(
+                '{0}.png'.format(nome)).convert()
         self.images['ERRO'] = pygame.image.load('ERRO.png').convert()
         i = 1
         while i < len(lista):
@@ -96,7 +97,6 @@ class Tortilla(pygame.sprite.Sprite):
 #     pygame.image.load('AFACP.png').convert(), (250, 250))
 
 
-
 # Classe da esteira
 class Esteira(pygame.sprite.Sprite):
     def __init__(self, x, y):
@@ -109,8 +109,6 @@ class Esteira(pygame.sprite.Sprite):
         self.rect.y = self.y
 
 # Classe de ingredientes
-
-
 class Ingrediente(pygame.sprite.Sprite):
     larg_ing = 100
     alt_ing = 100
@@ -171,6 +169,25 @@ try:
                     r = ing.rect
                     if r.x <= mx and mx <= r.x + 100 and r.y <= my and my <= r.y + 100:
                         print("click")
+                    if ingrediente_selecionado == ing:
+                        print("ing 2")
+                        tortilla = tortilla2
+                        ing.nao_selecionado()
+                        pygame.display.update()
+                    if ingrediente_selecionado == Ingrediente(GREEN, DARK_GREEN, 100, 350, 'A'):
+                        print("ing 3")
+                        tortilla = tortilla3
+                        ing.nao_selecionado()
+                        pygame.display.update()
+                    if ingrediente_selecionado == Ingrediente(BLACK, GRAY, 100, 500, 'A'):
+                        print("ing 4")
+                        tortilla = tortilla4
+                        ing.nao_selecionado()
+                        pygame.display.update()
+                    if ingrediente_selecionado == Ingrediente(GOLD, NAVY, 100, 650, 'A'):
+                        print("ing 5")
+                        tortilla = tortilla5
+                        ing.nao_selecionado()
                         pygame.display.update()
                         break
 
