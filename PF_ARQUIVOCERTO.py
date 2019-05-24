@@ -59,16 +59,15 @@ class Tortilla(pygame.sprite.Sprite):
         self.rect.y = self.y
         self.screen_rect = screen.get_rect()
 
-        #Carregar as imagens
-        lista = ['A','AF','AFA', 'AFAC']
+        # Carregar as imagens
+        lista = ['A', 'AF', 'AFA', 'AFAC']
         self.images = {}
         for nome in lista:
-            self.images[nome] = pygame.image.load('{0}.png'.format(nome)).convert()
+            self.images[nome] = pygame.image.load(
+                '{0}.png'.format(nome)).convert()
         self.images['ERRO'] = pygame.image.load('ERRO.png').convert()
-
         self.combo = ''
-
-
+        
     def update(self):
         self.rect.x += vel
 
@@ -85,7 +84,6 @@ class Tortilla(pygame.sprite.Sprite):
         self.rect.center = center
 
 
-
 tortilla2 = pygame.transform.scale(
     (pygame.image.load('AF.png')), (250, 250))
 tortilla3 = pygame.transform.scale(
@@ -94,7 +92,6 @@ tortilla4 = pygame.transform.scale(
     (pygame.image.load('AFAC.png')), (250, 250))
 tortilla5 = pygame.transform.scale(
     (pygame.image.load('AFACP.png')), (250, 250))
-
 
 
 # Classe da esteira
@@ -109,8 +106,6 @@ class Esteira(pygame.sprite.Sprite):
         self.rect.y = self.y
 
 # Classe de ingredientes
-
-
 class Ingrediente(pygame.sprite.Sprite):
     larg_ing = 100
     alt_ing = 100
@@ -185,17 +180,17 @@ while True:
                         tortilla = tortilla2
                         ing.nao_selecionado()
                         pygame.display.update()
-                    if ingrediente_selecionado == Ingrediente(GREEN, DARK_GREEN, 100, 350):
+                    if ingrediente_selecionado == Ingrediente(GREEN, DARK_GREEN, 100, 350, 'A'):
                         print("ing 3")
                         tortilla = tortilla3
                         ing.nao_selecionado()
                         pygame.display.update()
-                    if ingrediente_selecionado == Ingrediente(BLACK, GRAY, 100, 500):
+                    if ingrediente_selecionado == Ingrediente(BLACK, GRAY, 100, 500, 'A'):
                         print("ing 4")
                         tortilla = tortilla4
                         ing.nao_selecionado()
                         pygame.display.update()
-                    if ingrediente_selecionado == Ingrediente(GOLD, NAVY, 100, 650):
+                    if ingrediente_selecionado == Ingrediente(GOLD, NAVY, 100, 650, 'A'):
                         print("ing 5")
                         tortilla = tortilla5
                         ing.nao_selecionado()
