@@ -66,6 +66,7 @@ class Tortilla(pygame.sprite.Sprite):
         for nome in lista_ingredientes:
             self.images[nome] = pygame.transform.scale(pygame.image.load('{0}.png'.format(nome)), (20, 20))
         self.images['ERRO'] = pygame.image.load('ERRO.png').convert()
+        self.combo = ''
 
     #Loop do combo
         i = 1
