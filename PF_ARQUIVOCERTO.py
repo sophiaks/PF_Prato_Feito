@@ -29,9 +29,10 @@ print(listacomb)
 lista_letras = []
 
 # LISTA DO MENU #
-comb1 = ['A','F','P','C','C']
+comb1 = ['A', 'F', 'P', 'C', 'C']
 comb2 = ['S', 'F', 'A', 'C', 'P']
 comb3 = ['S', 'S', 'P', 'C', 'C']
+combcompleto = ['AFPCC', 'SFACP', 'SSPCC']
 lista_menu = [comb1, comb2, comb3]
 
 # VELOCIDADE #
@@ -127,7 +128,7 @@ class Tortilla(pygame.sprite.Sprite):
     def update(self):
         self.rect.x += vel
 
-    def troca_ingrediente(self, ingrediente):
+    def troca_ingrediente(self, ingrediente, combo):
         self.combo += ingrediente
         center = self.rect.center
         if self.combo in self.images:
@@ -196,7 +197,8 @@ class Pedido(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.x = x
         self.y = y
-        self.image = pygame.image.load('AFPCC.png').convert()
+        self.image = pygame.image.load(
+            '{0}.png'.format(combcompleto[listacomb-1])).convert()
         self.image = pygame.transform.scale(self.image, (150, 150))
         self.image.set_colorkey(WHITE)
         self.rect = self.image.get_rect()
@@ -252,6 +254,7 @@ try:
         # Se a pessoa clicar com o mouse:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mx, my = pygame.mouse.get_pos()
+                print(mx, my)
         # Para cada ingrediente na lista de ingredientes, se a pessoa clicar dentro do retângulo do ingrediente
                 for ing in ingredientes:
                     r = ing.rect
@@ -265,16 +268,15 @@ try:
                     if t.x <= cx and cx <= t.x+250 and t.y <= cy and cy <= t.y + 250:
                         lista_letras.append(ingrediente_selecionado.letra)
                         string += ingrediente_selecionado.letra
-                        Tortilla.image = "{0}.png".format(string)
+                        print(string)
                         all_sprites.update()
-                        print(lista_letras)
                         # tortilla.troca_ingrediente(ingrediente_selecionado.letra)
                         ingrediente_selecionado = None
 
                 if event.type == pygame.MOUSEBUTTONDOWN and ingrediente_selecionado is None:
                     ca = campainha.rect
                     dx, dy = pygame.mouse.get_pos()
-                    #Se você clicar na campainha
+                    # Se você clicar na campainha
                     if ca.x <= dx <= ca.x+75 and ca.y <= dy <= ca.y + 75:
                         t = tortilla.rect
                         verifica = all(
@@ -286,7 +288,8 @@ try:
                                 print("Seu dinheiro: {0}".format(dindin))
                                 vel = 50
                                 pronto = True
-                                counter += 1
+                                counter += 1/2
+                                listacomb = random.randint(1, 3)
                         elif verifica == False:
                             print("Sequência incorreta")
                             dindin -= 100
@@ -298,12 +301,18 @@ try:
                                 print("Okay né")
                                 print('Se quiser tentar de novo roda o jogo aí')
                                 burrito.kill()
+                            all_sprites.update()
                 if t.x > 1000:
                     vel = counter
+                    string = ''
+                    lista_letras = []
+                    print(lista_letras)
                     t.x = -200
+                    pronto = False
                     listacomb = random.randint(1, 3)
-                    print(listacomb)
-                    print(vel)
+                    # screen.pygame.Surface.blit('{0}.png'.format(
+                    #     combcompleto[listacomb-1]), (645, 130))
+                    all_sprites.update()
 
         screen.blit(background, background_rect)
         all_sprites.update()
