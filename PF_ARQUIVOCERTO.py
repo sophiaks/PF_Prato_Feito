@@ -7,25 +7,53 @@ import random
 # Inicializa o jogo
 pygame.init()
 pygame.mixer.init()
+
+# Variável pra ver se o burrito tá pronto:
+pronto = False
+
 # FPS e o Clock
 FPS = 120
 fpsClock = pygame.time.Clock()
-lista_ingredientes = ['salada', 'arroz', 'peixe', 'feijao', 'cogumelo']
-listacomb = random.randint(1,5)
-vel = 5
 
+# String Vazia - para carregar a string.png depois
+string = ''
+
+# Lista com ingredientes individuais
+lista_ingredientes = ['salada', 'arroz', 'peixe', 'feijao', 'cogumelo']
+
+# Lista de combinações de menu diferentes
+listacomb = random.randint(1, 3)
+print(listacomb)
+
+# Lista de letras
+lista_letras = []
+
+# LISTA DO MENU #
+comb1 = ['A','F','P','C','C']
+comb2 = ['S', 'F', 'A', 'C', 'P']
+comb3 = ['S', 'S', 'P', 'C', 'C']
+lista_menu = [comb1, comb2, comb3]
+
+# VELOCIDADE #
+vel = 1
+counter = 1
+# Desenha a tela
 screen = pygame.display.set_mode((1000, 750), 0, 32)
 
-pygame.display.set_caption('Burrito Animado')
+# Nome do jogo
+pygame.display.set_caption('Fam Fam')
 
+# Carrega imagens da tortilla e da campainha
 tortilla = pygame.transform.scale(
     pygame.image.load('tortilla.png'), (250, 250))
+campainha = pygame.transform.scale(
+    pygame.image.load('bell.png'), (70, 70))
 
+# Coordenadas iniciais da tortilla
+bx = 520
+by = -200
 
-bx = 300
-by = -100
-
-#Começa com 1000 de dinheiro
+# Começa com 1000 de dinheiro
 dindin = 1000
 
 # CORES
@@ -44,38 +72,58 @@ PINK = (255, 51, 153)
 ORANGE = (255, 140, 0)
 BROWN = (139, 69, 19)
 
-# Desenhando o retângulo de ingredientes
+# Classe do dinheiro
+
+
+class Dindin(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        self.x = y
+        self.y = x
+        for nome in lista_ingredientes:
+            self.images[nome] = pygame.transform.scale(
+                pygame.image.load('{0}.png'.format(nome)), (40, 40))
+        self.rect = self.image.get_rect()
+        self.rect.x = self.x
+        self.rect.y = self.y
+        self.screen_rect = screen.get_rect()
 
 # Classe da tortilla
+
+
 class Tortilla(pygame.sprite.Sprite):
 
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
         self.x = y
         self.y = x
-        self.image = tortilla #pygame.transform.scale(tortilla, (250, 250))
+        self.image = tortilla  # pygame.transform.scale(tortilla, (250, 250))
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
         self.screen_rect = screen.get_rect()
-        self.image.set_colorkey(BLACK)
 
-        #Carregar as imagens
-        lista = ['A', 'AFP', 'AFPC', 'AF', 'AFPCC', 'S', 'SF', 'SFA', 'SFAC', 'SFACP', 'SS', 'SSP', 'SSPC', 'SSPCC']
+        # Lista de letras do menu
+        lista = ['A', 'AF', 'AFP', 'AFPC', 'AFPCC', 'S', 'SF', 'SFA',
+                 'SFAC', 'SFACP', 'S', 'SS', 'SSP', 'SSPC', 'SSPCC']
+
+        # Carregar as imagens dos ingredientes
         self.images = {}
         for nome in lista_ingredientes:
-            self.images[nome] = pygame.transform.scale(pygame.image.load('{0}.png'.format(nome)), (20, 20))
+            self.images[nome] = pygame.transform.scale(
+                pygame.image.load('{0}.png'.format(nome)), (40, 40))
         self.images['ERRO'] = pygame.image.load('ERRO.png').convert()
-        self.combo = ''
 
-    #Loop do combo
-        i = 1
-        while i < len(lista):
-            if lista[i] > lista[i - 1]:
-                self.combo = lista[i]
-            i += 1
+# Assim que você clica na tortilla, a imagem é atualizada para o combo.
 
-    #Atualiza a posição do sprite
+    # Loop do combo
+        # i = 1
+        # while i < len(lista) - 5:
+        #     if lista[i] > lista[i - 1]:
+        #         self.combo = lista[i]
+        #     i += 1
+
+    # Atualiza a posição do sprite
     def update(self):
         self.rect.x += vel
 
@@ -86,8 +134,10 @@ class Tortilla(pygame.sprite.Sprite):
             self.image = self.images[self.combo]
         else:
             self.image = self.images['ERRO']
+            print("Esse burrito vai pro lixo")
         self.rect = self.image
         self.rect.center = center
+
 
 # Classe da esteira
 class Esteira(pygame.sprite.Sprite):
@@ -95,21 +145,33 @@ class Esteira(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.x = x
         self.y = y
-        esteira = pygame.transform.scale(pygame.image.load('esteirapixel.png'), (1000, 300))
-        self.image = pygame.transform.scale(esteira, (1000, 300))
+        esteira = pygame.image.load('planofundoesteira2.png')
+        self.image = pygame.transform.scale(esteira, (1000, 1000))
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
 
+# Classe da campainha
+
+
+class Campainha(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        self.x = x
+        self.y = y
+        campainha = pygame.image.load('bell.png')
+        self.image = pygame.transform.scale(campainha, (75, 75))
+        self.rect = self.image.get_rect()
+        self.rect.x = self.x
+        self.rect.y = self.y
+
+
 # Classe de ingredientes
 class Ingrediente(pygame.sprite.Sprite):
-    larg_ing = 100
-    alt_ing = 100
     def __init__(self, image, x, y, letra):
         pygame.sprite.Sprite.__init__(self)
         self.x = x
         self.y = y
-        #for ingrediente in lista_ingredientes:
         self.image = pygame.image.load(image).convert_alpha()
         self.image = pygame.transform.scale(self.image, (100, 100))
         self.rect = self.image.get_rect()
@@ -117,37 +179,68 @@ class Ingrediente(pygame.sprite.Sprite):
         self.rect.y = self.y
         self.letra = letra
 
-    # def selecionado(self):
-    #     self.image.fill(self.color_selecionado)
 
-    # def nao_selecionado(self):
-    #     self.image.fill(self.color)
+# Ingrediente fica maior quando selecionado
+#     def selecionado(self):
+#         self.image = pygame.transform.scale(self.image, (110, 110))
+# Ingrediente fica menor quando não selecionado
+#     def nao_selecionado(self):
+#         self.image = pygame.transform.scale(self.image, (100, 100))
 
 
+# Classe do pedido (o primeiro burrito vai sempre ser o AFPCC)
+
+
+class Pedido(pygame.sprite.Sprite):
+    def __init__(self, image, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        self.x = x
+        self.y = y
+        self.image = pygame.image.load('AFPCC.png').convert()
+        self.image = pygame.transform.scale(self.image, (150, 150))
+        self.image.set_colorkey(WHITE)
+        self.rect = self.image.get_rect()
+        self.rect.x = self.x
+        self.rect.y = self.y
+
+
+# Adiciona os ingredientes em uma lista e define que nenhum ingrediente está selecionado
 all_sprites = pygame.sprite.Group()
 ingredientes = []
-ingredientes.append(Ingrediente('arroz.png', 50, 100, 'A'))
-ingredientes.append(Ingrediente('salada.png', 200, 100, 'S'))
-ingredientes.append(Ingrediente('cogumelo.png', 350, 100, 'C'))
-ingredientes.append(Ingrediente('peixe.png', 500, 100, 'P'))
-ingredientes.append(Ingrediente("feijao.png", 650, 100, 'F'))
+ingredientes.append(Ingrediente('arroz.png', 70, 430, 'A'))
+ingredientes.append(Ingrediente('salada.png', 270, 430, 'S'))
+ingredientes.append(Ingrediente('cogumelo.png', 470, 430, 'C'))
+ingredientes.append(Ingrediente('peixe.png', 650, 430, 'P'))
+ingredientes.append(Ingrediente("feijao.png", 830, 430, 'F'))
 for i in ingredientes:
     all_sprites.add(i)
 ingrediente_selecionado = None
 
-esteira = Esteira(0, 400)
+# Adiciona a esteira na lista de sprites
+esteira = Esteira(0, -100)
 all_sprites.add(esteira)
 
+# Adiciona a tortilla na lista de sprites
 tortilla = Tortilla(bx, by)
 all_sprites.add(tortilla)
 
-# tela de fundo
-background = pygame.image.load('planofundo.png').convert()
+# Adiciona a campainha na lista de sprites
+campainha = Campainha(700, 346)
+all_sprites.add(campainha)
+
+# Adiciona o pedido na lista de sprites
+pedido = Pedido('AFPCC.png', 645, 130)
+all_sprites.add(pedido)
+
+# Tela de fundo
+background = pygame.image.load('planofundo1.jpg').convert()
 background_rect = background.get_rect()
 
+#------------------------------------------------------------#
+#------------------------------------------------------------#
 
-# Loop principal
 
+# LOOP PRINCIPAL
 try:
 
     while True:
@@ -156,50 +249,62 @@ try:
             if event.type == QUIT:
                 pygame.quit()
                 sys.exit(0)
-
         # Se a pessoa clicar com o mouse:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mx, my = pygame.mouse.get_pos()
-        # Para cada ingrediente na lista de ingredientes se a pessoa clicar dentro do retângulo do ingrediente
+        # Para cada ingrediente na lista de ingredientes, se a pessoa clicar dentro do retângulo do ingrediente
                 for ing in ingredientes:
                     r = ing.rect
                     if r.x <= mx and mx <= r.x + 100 and r.y <= my and my <= r.y + 100:
-                        print("click")
-                        ing = ingrediente_selecionado
-                    #Selecionou o arroz
-                        if ingrediente_selecionado == Ingrediente('{0}.png'.format(ing), 100, 350, ingrediente_selecionado.letra):
-                            print("arroz")
-                            tortilla.troca_ingrediente(ingrediente_selecionado.letra)
-                            pygame.display.update()
-                        #Selecionou a salada
-                        if ingrediente_selecionado == Ingrediente('salada.png', 100, 500, 'S'):
-                            print("salada")
-                            pygame.display.update()
-                        #Selecionou o cogumelo
-                        if ingrediente_selecionado == Ingrediente('cogumelo.png', 100, 650, 'C'):
-                            print("cogumelo")
-                            pygame.display.update()
-                        #Selecionou o feijao
-                        if ingrediente_selecionado == Ingrediente('feijao.png', 100, 800, 'F'):
-                            print("feijao")
-                            pygame.display.update()
-                        #Selecionou o peixe
-                        if ingrediente_selecionado == Ingrediente('peixe.png', 100, 950, 'p'):
-                            print("peixe")
-                            pygame.display.update()
-                            break
+                        ingrediente_selecionado = ing
+        # Se clicar e existir um ingrediente selecionado
+                if event.type == pygame.MOUSEBUTTONDOWN and ingrediente_selecionado is not None:
+                    cx, cy = pygame.mouse.get_pos()
+                    t = tortilla.rect
+                    # Se clicar dentro da área do burrito:
+                    if t.x <= cx and cx <= t.x+250 and t.y <= cy and cy <= t.y + 250:
+                        lista_letras.append(ingrediente_selecionado.letra)
+                        string += ingrediente_selecionado.letra
+                        Tortilla.image = "{0}.png".format(string)
+                        all_sprites.update()
+                        print(lista_letras)
+                        # tortilla.troca_ingrediente(ingrediente_selecionado.letra)
+                        ingrediente_selecionado = None
 
-            if event.type == pygame.MOUSEBUTTONDOWN and ingrediente_selecionado is not None:
-                cx, cy = pygame.mouse.get_pos()
-                t = tortilla.rect
-                print(cx,cy)
-                if t.x <= cx and cx <= t.x+250 and t.y <= cy and cy <= t.y + 250:
-                    tortilla.troca_ingrediente(ingrediente_selecionado.letra)
-                    print("BIA DEU CERTO")
-                    print('uhullll')
+                if event.type == pygame.MOUSEBUTTONDOWN and ingrediente_selecionado is None:
+                    ca = campainha.rect
+                    dx, dy = pygame.mouse.get_pos()
+                    #Se você clicar na campainha
+                    if ca.x <= dx <= ca.x+75 and ca.y <= dy <= ca.y + 75:
+                        t = tortilla.rect
+                        verifica = all(
+                            e in lista_letras for e in lista_menu[listacomb-1])
+                        if verifica == True:
+                            if pronto == False:
+                                print("UHUL TÁ CERTO")
+                                dindin += 100
+                                print("Seu dinheiro: {0}".format(dindin))
+                                vel = 50
+                                pronto = True
+                                counter += 1
+                        elif verifica == False:
+                            print("Sequência incorreta")
+                            dindin -= 100
+                            print("Ihhh... Seu dinheiro: {0}".format(dindin))
+                            vel = 50
+                            pronto = True
+                            if dindin <= 0:
+                                print("É sério que você perdeu um jogo tão fácil?")
+                                print("Okay né")
+                                print('Se quiser tentar de novo roda o jogo aí')
+                                burrito.kill()
+                if t.x > 1000:
+                    vel = counter
+                    t.x = -200
+                    listacomb = random.randint(1, 3)
+                    print(listacomb)
+                    print(vel)
 
-            # if listacomb == []:
-            # if num_menu == 2:
         screen.blit(background, background_rect)
         all_sprites.update()
         all_sprites.draw(screen)
@@ -208,3 +313,6 @@ try:
 finally:
     pygame.quit()
     sys.exit(0)
+
+
+# Ingrediente('{0}.png'.format(ing), r.x, r.y, Ingrediente.ing.letra)
