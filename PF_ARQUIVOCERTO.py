@@ -3,7 +3,7 @@ import sys
 from os import path
 from pygame.locals import *
 import random
-
+pygame.font.init()
 # Inicializa o jogo
 pygame.init()
 pygame.mixer.init()
@@ -89,6 +89,11 @@ class Dindin(pygame.sprite.Sprite):
         self.rect.y = self.y
         self.screen_rect = screen.get_rect()
 
+    def render_font(self, word, x, y, font, color):
+        my_font = pygame.font.SysFont('arial', 36)
+        new_label = my_font.render(word, 1, (color))
+        return new_label
+
 # Classe da tortilla
 
 
@@ -146,8 +151,8 @@ class Esteira(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.x = x
         self.y = y
-        esteira = pygame.image.load('planofundoesteira2.png')
-        self.image = pygame.transform.scale(esteira, (1000, 1000))
+        esteira = pygame.image.load('planofundoesteira3.png')
+        self.image = pygame.transform.scale(esteira, (1000, 850))
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
@@ -199,7 +204,7 @@ class Pedido(pygame.sprite.Sprite):
         self.y = y
         self.image = pygame.image.load(
             '{0}.png'.format(combcompleto[listacomb-1])).convert()
-        self.image = pygame.transform.scale(self.image, (150, 150))
+        self.image = pygame.transform.scale(self.image, (130, 130))
         self.image.set_colorkey(WHITE)
         self.rect = self.image.get_rect()
         self.rect.x = self.x
@@ -219,7 +224,7 @@ for i in ingredientes:
 ingrediente_selecionado = None
 
 # Adiciona a esteira na lista de sprites
-esteira = Esteira(0, -100)
+esteira = Esteira(0, 0)
 all_sprites.add(esteira)
 
 # Adiciona a tortilla na lista de sprites
@@ -227,11 +232,11 @@ tortilla = Tortilla(bx, by)
 all_sprites.add(tortilla)
 
 # Adiciona a campainha na lista de sprites
-campainha = Campainha(700, 346)
+campainha = Campainha(700, 370)
 all_sprites.add(campainha)
 
 # Adiciona o pedido na lista de sprites
-pedido = Pedido('AFPCC.png', 645, 130)
+pedido = Pedido('AFPCC.png', 820, 205)
 all_sprites.add(pedido)
 
 # Tela de fundo
@@ -287,6 +292,7 @@ try:
                                 dindin += 100
                                 print("Seu dinheiro: {0}".format(dindin))
                                 vel = 50
+                                pygame.image.load('ganhoudindin.png')
                                 pronto = True
                                 counter += 1/2
                                 listacomb = random.randint(1, 3)
@@ -294,7 +300,10 @@ try:
                             print("Sequência incorreta")
                             dindin -= 100
                             print("Ihhh... Seu dinheiro: {0}".format(dindin))
+                            Dindin.render_font(
+                                dindin, 20, 0, arial, 'WHITE')
                             vel = 50
+                            pygame.image.load('perdeudindin.png')
                             pronto = True
                             if dindin <= 0:
                                 print("É sério que você perdeu um jogo tão fácil?")
