@@ -37,7 +37,7 @@ lista_menu = [comb1, comb2, comb3]
 
 # VELOCIDADE #
 vel = 1
-counter = 1
+counter = 1/2
 # Desenha a tela
 screen = pygame.display.set_mode((1000, 750), 0, 32)
 
@@ -275,10 +275,10 @@ try:
                         lista_letras.append(ingrediente_selecionado.letra)
                         palavra += ingrediente_selecionado.letra
                         print(palavra)
-                        # if palavra in lista:
+                        # if palavra in letras:
                         tortilla.image = pygame.image.load(
                             "{0}.png".format(palavra))
-                        # elif palavra not in lista:
+                        # elif palavra not in letras:
                         #     tortilla.image = pygame.image.load('ERRO.png')
                         all_sprites.update()
                         # tortilla.troca_ingrediente(ingrediente_selecionado.letra)
@@ -300,7 +300,7 @@ try:
                                 vel = 50
                                 pygame.image.load('ganhoudindin.png')
                                 pronto = True
-                                counter += 1/2
+                                counter += 1
                                 listacomb = random.randint(1, 3)
                                 print(listacomb)
                         elif verifica == False:
@@ -331,6 +331,7 @@ try:
                     tortilla.image = tortilla.img_tortilla_vazia
                     filename = "{0}.png".format(combcompleto[listacomb - 1])
                     pedido.image = pygame.image.load(filename)
+                    print(dindin)
 
         screen.blit(background, background_rect)
         all_sprites.update()
