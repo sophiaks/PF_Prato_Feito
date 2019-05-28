@@ -16,7 +16,7 @@ FPS = 120
 fpsClock = pygame.time.Clock()
 
 # String Vazia - para carregar a string.png depois
-string = ''
+palavra = ''
 
 # Lista com ingredientes individuais
 lista_ingredientes = ['salada', 'arroz', 'peixe', 'feijao', 'cogumelo']
@@ -45,8 +45,6 @@ screen = pygame.display.set_mode((1000, 750), 0, 32)
 pygame.display.set_caption('Fam Fam')
 
 # Carrega imagens da tortilla e da campainha
-tortilla = pygame.transform.scale(
-    pygame.image.load('tortilla.png'), (250, 250))
 campainha = pygame.transform.scale(
     pygame.image.load('bell.png'), (70, 70))
 
@@ -101,9 +99,14 @@ class Tortilla(pygame.sprite.Sprite):
 
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
+
+        self.img_tortilla_vazia = pygame.transform.scale(
+            pygame.image.load('tortilla.png'), (250, 250))
+
         self.x = y
         self.y = x
-        self.image = tortilla  # pygame.transform.scale(tortilla, (250, 250))
+        # pygame.transform.scale(tortilla, (250, 250))
+        self.image = self.img_tortilla_vazia
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
@@ -118,18 +121,13 @@ class Tortilla(pygame.sprite.Sprite):
         for nome in lista_ingredientes:
             self.images[nome] = pygame.transform.scale(
                 pygame.image.load('{0}.png'.format(nome)), (40, 40))
+            self.images[nome].set_colorkey(WHITE)
         self.images['ERRO'] = pygame.image.load('ERRO.png').convert()
 
 # Assim que você clica na tortilla, a imagem é atualizada para o combo.
 
-    # Loop do combo
-        # i = 1
-        # while i < len(lista) - 5:
-        #     if lista[i] > lista[i - 1]:
-        #         self.combo = lista[i]
-        #     i += 1
-
     # Atualiza a posição do sprite
+
     def update(self):
         self.rect.x += vel
 
@@ -186,10 +184,12 @@ class Ingrediente(pygame.sprite.Sprite):
         self.letra = letra
 
 
-# Ingrediente fica maior quando selecionado
+# # Ingrediente fica maior quando selecionado
+
 #     def selecionado(self):
 #         self.image = pygame.transform.scale(self.image, (110, 110))
-# Ingrediente fica menor quando não selecionado
+# # Ingrediente fica menor quando não selecionado
+
 #     def nao_selecionado(self):
 #         self.image = pygame.transform.scale(self.image, (100, 100))
 
@@ -202,8 +202,9 @@ class Pedido(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.x = x
         self.y = y
-        self.image = pygame.image.load(
+        pedido = pygame.image.load(
             '{0}.png'.format(combcompleto[listacomb-1])).convert()
+        self.image = pedido
         self.image = pygame.transform.scale(self.image, (130, 130))
         self.image.set_colorkey(WHITE)
         self.rect = self.image.get_rect()
@@ -272,8 +273,13 @@ try:
                     # Se clicar dentro da área do burrito:
                     if t.x <= cx and cx <= t.x+250 and t.y <= cy and cy <= t.y + 250:
                         lista_letras.append(ingrediente_selecionado.letra)
-                        string += ingrediente_selecionado.letra
-                        print(string)
+                        palavra += ingrediente_selecionado.letra
+                        print(palavra)
+                        # if palavra in lista:
+                        tortilla.image = pygame.image.load(
+                            "{0}.png".format(palavra))
+                        # elif palavra not in lista:
+                        #     tortilla.image = pygame.image.load('ERRO.png')
                         all_sprites.update()
                         # tortilla.troca_ingrediente(ingrediente_selecionado.letra)
                         ingrediente_selecionado = None
@@ -296,12 +302,15 @@ try:
                                 pronto = True
                                 counter += 1/2
                                 listacomb = random.randint(1, 3)
+                                print(listacomb)
                         elif verifica == False:
                             print("Sequência incorreta")
                             dindin -= 100
+                            listacomb = random.randint(1, 3)
+                            print(listacomb)
                             print("Ihhh... Seu dinheiro: {0}".format(dindin))
-                            Dindin.render_font(
-                                dindin, 20, 0, arial, 'WHITE')
+                            # Dindin.render_font(
+                            #     dindin, 20, 0, arial, 'WHITE')
                             vel = 50
                             pygame.image.load('perdeudindin.png')
                             pronto = True
@@ -313,21 +322,24 @@ try:
                             all_sprites.update()
                 if t.x > 1000:
                     vel = counter
-                    string = ''
+                    palavra = ''
                     lista_letras = []
                     print(lista_letras)
                     t.x = -200
                     pronto = False
                     listacomb = random.randint(1, 3)
-                    # screen.pygame.Surface.blit('{0}.png'.format(
-                    #     combcompleto[listacomb-1]), (645, 130))
-                    all_sprites.update()
+                    tortilla.image = tortilla.img_tortilla_vazia
+                    filename = "{0}.png".format(combcompleto[listacomb - 1])
+                    pedido.image = pygame.image.load(filename)
 
         screen.blit(background, background_rect)
         all_sprites.update()
         all_sprites.draw(screen)
         fpsClock.tick(FPS)
         pygame.display.update()
+except:
+    pass
+
 finally:
     pygame.quit()
     sys.exit(0)
