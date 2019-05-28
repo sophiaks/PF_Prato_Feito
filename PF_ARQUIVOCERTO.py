@@ -49,7 +49,7 @@ campainha = pygame.transform.scale(
     pygame.image.load('bell.png'), (70, 70))
 
 # Coordenadas iniciais da tortilla
-bx = 520
+bx = 580
 by = -200
 
 # Começa com 1000 de dinheiro
@@ -101,7 +101,7 @@ class Tortilla(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
 
         self.img_tortilla_vazia = pygame.transform.scale(
-            pygame.image.load('tortilla.png'), (250, 250))
+            pygame.image.load('tortilla.png'), (200, 200))
 
         self.x = y
         self.y = x
@@ -113,8 +113,8 @@ class Tortilla(pygame.sprite.Sprite):
         self.screen_rect = screen.get_rect()
 
         # Lista de letras do menu
-        lista = ['A', 'AF', 'AFP', 'AFPC', 'AFPCC', 'S', 'SF', 'SFA',
-                 'SFAC', 'SFACP', 'S', 'SS', 'SSP', 'SSPC', 'SSPCC']
+        letras = ['A', 'AF', 'AFP', 'AFPC', 'AFPCC', 'S', 'SF', 'SFA',
+                  'SFAC', 'SFACP', 'S', 'SS', 'SSP', 'SSPC', 'SSPCC']
 
         # Carregar as imagens dos ingredientes
         self.images = {}
@@ -131,16 +131,16 @@ class Tortilla(pygame.sprite.Sprite):
     def update(self):
         self.rect.x += vel
 
-    def troca_ingrediente(self, ingrediente, combo):
-        self.combo += ingrediente
-        center = self.rect.center
-        if self.combo in self.images:
-            self.image = self.images[self.combo]
-        else:
-            self.image = self.images['ERRO']
-            print("Esse burrito vai pro lixo")
-        self.rect = self.image
-        self.rect.center = center
+    # def troca_ingrediente(self, ingrediente, combo):
+    #     self.combo += ingrediente
+    #     center = self.rect.center
+    #     if self.combo in self.images:
+    #         self.image = self.images[self.combo]
+    #     else:
+    #         self.image = self.images['ERRO']
+    #         print("Esse burrito vai pro lixo")
+    #     self.rect = self.image
+    #     self.rect.center = center
 
 
 # Classe da esteira
@@ -275,12 +275,10 @@ try:
                         lista_letras.append(ingrediente_selecionado.letra)
                         palavra += ingrediente_selecionado.letra
                         print(palavra)
-                        # if palavra in lista:
                         tortilla.image = pygame.image.load(
                             "{0}.png".format(palavra))
-                        # elif palavra not in lista:
+                        # if palavra not in letras:
                         #     tortilla.image = pygame.image.load('ERRO.png')
-                        all_sprites.update()
                         # tortilla.troca_ingrediente(ingrediente_selecionado.letra)
                         ingrediente_selecionado = None
 
@@ -329,7 +327,8 @@ try:
                     pronto = False
                     listacomb = random.randint(1, 3)
                     tortilla.image = tortilla.img_tortilla_vazia
-                    filename = "{0}.png".format(combcompleto[listacomb - 1])
+                    filename = pygame.transform.scale("{0}.png".format(
+                        combcompleto[listacomb - 1]), (130, 130))
                     pedido.image = pygame.image.load(filename)
 
         screen.blit(background, background_rect)
