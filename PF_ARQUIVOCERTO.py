@@ -79,9 +79,6 @@ class Dindin(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.x = y
         self.y = x
-        for nome in lista_ingredientes:
-            self.images[nome] = pygame.transform.scale(
-                pygame.image.load('{0}.png'.format(nome)), (40, 40))
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
@@ -300,7 +297,7 @@ try:
                                 vel = 50
                                 pygame.image.load('ganhoudindin.png')
                                 pronto = True
-                                counter += 1/2
+                                counter += 1
                                 listacomb = random.randint(1, 3)
                                 print(listacomb)
                         elif verifica == False:
@@ -309,8 +306,8 @@ try:
                             listacomb = random.randint(1, 3)
                             print(listacomb)
                             print("Ihhh... Seu dinheiro: {0}".format(dindin))
-                            # Dindin.render_font(
-                            #     dindin, 20, 0, arial, 'WHITE')
+                            Dindin.render_font(
+                                dindin, 20, 0, arial, 'WHITE')
                             vel = 50
                             pygame.image.load('perdeudindin.png')
                             pronto = True
