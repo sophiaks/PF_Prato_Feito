@@ -333,7 +333,6 @@ try:
                             dinheiromenos = Dindin(
                                 DINDIN_IMG_PERDEU, 500, 400)
                             all_sprites.add(dinheiromenos)
-                            print(dinheiromenos)
                             print(listacomb)
                             print("Ihhh... Seu dinheiro: {0}".format(dindin))
                             vel = 50
