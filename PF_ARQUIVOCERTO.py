@@ -132,7 +132,8 @@ class Tortilla(pygame.sprite.Sprite):
             self.images[nome] = pygame.transform.scale(
                 pygame.image.load('{0}.png'.format(nome)), (40, 40))
             self.images[nome].set_colorkey(WHITE)
-        self.images['ERRO'] = pygame.image.load('ERRO.png').convert()
+        self.images['ERRO'] = pygame.transform.scale(
+            pygame.image.load('ERRO.png'), (2, 2))
 
 # Assim que você clica na tortilla, a imagem é atualizada para o combo.
 
@@ -141,16 +142,16 @@ class Tortilla(pygame.sprite.Sprite):
     def update(self):
         self.rect.x += vel
 
-    def troca_ingrediente(self, ingrediente, combo):
-        self.combo += ingrediente
-        center = self.rect.center
-        if self.combo in self.images:
-            self.image = self.images[self.combo]
-        else:
-            self.image = self.images['ERRO']
-            print("Esse burrito vai pro lixo")
-        self.rect = self.image
-        self.rect.center = center
+    # def troca_ingrediente(self, ingrediente, combo):
+    #     self.combo += ingrediente
+    #     center = self.rect.center
+    #     if self.combo in self.images:
+    #         self.image = self.images[self.combo]
+    #     else:
+    #         self.image = self.images['ERRO']
+    #         print("Esse burrito vai pro lixo")
+    #     self.rect = self.image
+    #     self.rect.center = center
 
 
 # Classe da esteira
@@ -293,12 +294,11 @@ try:
                         lista_letras.append(ingrediente_selecionado.letra)
                         palavra += ingrediente_selecionado.letra
                         print(palavra)
-                        # if palavra in letras:
-                        tortilla.image = pygame.image.load(
-                            "{0}.png".format(palavra))
-                        # elif palavra not in letras:
-                        #     tortilla.image = pygame.image.load('ERRO.png')
-                        # tortilla.troca_ingrediente(ingrediente_selecionado.letra)
+                        if palavra in lista_letras:
+                            tortilla.image = pygame.image.load(
+                                "{0}.png".format(palavra))
+                        elif palavra not in lista_letras:
+                            tortilla.image = pygame.image.load('ERRO.png')
                         ingrediente_selecionado = None
 
                 if event.type == pygame.MOUSEBUTTONDOWN and ingrediente_selecionado is None:
