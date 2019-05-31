@@ -79,8 +79,10 @@ PINK = (255, 51, 153)
 ORANGE = (255, 140, 0)
 BROWN = (139, 69, 19)
 
-DINDIN_IMG_GANHOU = pygame.transform.scale(pygame.image.load('ganhoudindin.png'), (100, 100))
-DINDIN_IMG_PERDEU = pygame.transform.scale(pygame.image.load('perdeudindin.png'), (100, 100))
+DINDIN_IMG_GANHOU = pygame.transform.scale(
+    pygame.image.load('ganhoudindin.png'), (100, 100))
+DINDIN_IMG_PERDEU = pygame.transform.scale(
+    pygame.image.load('perdeudindin.png'), (100, 100))
 
 # score_font = pygame.font.Font(path.join(fnt_dir, "PressStart2P.ttf"), 28)
 # Classe do dinheiro
@@ -313,23 +315,28 @@ try:
                                 dindin += 100
                                 print("Seu dinheiro: {0}".format(dindin))
                                 vel = 50
-                                dvel = 20
                                 pronto = True
                                 counter += 1
                                 listacomb = random.randint(1, 3)
-                                dindin = Dindin(DINDIN_IMG_GANHOU, WIDTH/2, HEIGHT)
-                                all_sprites.add(dindin)
+                                print("Antes")
+                                dinheiromais = Dindin(
+                                    DINDIN_IMG_GANHOU, 500, 400)
+                                all_sprites.add(dinheiromais)
+                                print(dinheiromais)
+                                print("depois")
                                 print(listacomb)
 
                         elif verifica == False:
                             print("Sequência incorreta")
                             dindin -= 100
                             listacomb = random.randint(1, 3)
+                            dinheiromenos = Dindin(
+                                DINDIN_IMG_PERDEU, 500, 400)
+                            all_sprites.add(dinheiromenos)
+                            print(dinheiromenos)
                             print(listacomb)
                             print("Ihhh... Seu dinheiro: {0}".format(dindin))
                             vel = 50
-                            # pygame.image.load('perdeudindin.png')
-                            pdx += dvel
                             pronto = True
                             if dindin <= 0:
                                 print("É sério que você perdeu um jogo tão fácil?")
@@ -348,7 +355,6 @@ try:
                     tortilla.image = tortilla.img_tortilla_vazia
                     filename = "{0}.png".format(combcompleto[listacomb - 1])
                     pedido.image = pygame.image.load(filename)
-                    print(dindin)
 
         screen.blit(background, background_rect)
         all_sprites.update()
@@ -356,8 +362,8 @@ try:
         fpsClock.tick(FPS)
         pygame.display.update()
 
-except:
-    pass
+# except:
+#     pass
 
 finally:
     pygame.quit()
