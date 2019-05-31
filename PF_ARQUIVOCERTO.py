@@ -37,20 +37,28 @@ lista_menu = [comb1, comb2, comb3]
 
 # VELOCIDADE #
 vel = 1
-counter = 1/2
+counter = 1
 # Desenha a tela
 screen = pygame.display.set_mode((1000, 750), 0, 32)
 
 # Nome do jogo
-pygame.display.set_caption('Fam Fam')
+pygame.display.set_caption('Quatá City Burritos')
 
-# Carrega imagens da tortilla e da campainha
+# Carrega imagem da campainha
 campainha = pygame.transform.scale(
     pygame.image.load('bell.png'), (70, 70))
 
 # Coordenadas iniciais da tortilla
 bx = 520
 by = -200
+
+# Coordenadas inicias do +100
+gdx = 500
+gdy = -400
+
+# Coordenadas iniciais do -100
+pdx = 500
+pdy = -400
 
 # Começa com 1000 de dinheiro
 dindin = 1000
@@ -71,23 +79,26 @@ PINK = (255, 51, 153)
 ORANGE = (255, 140, 0)
 BROWN = (139, 69, 19)
 
+DINDIN_IMG_GANHOU = pygame.transform.scale(pygame.image.load('ganhoudindin.png'), (100, 100))
+DINDIN_IMG_PERDEU = pygame.transform.scale(pygame.image.load('perdeudindin.png'), (100, 100))
+
+# score_font = pygame.font.Font(path.join(fnt_dir, "PressStart2P.ttf"), 28)
 # Classe do dinheiro
 
 
 class Dindin(pygame.sprite.Sprite):
-    def __init__(self, x, y):
+    def __init__(self, img, x, y):
         pygame.sprite.Sprite.__init__(self)
+
+        self.image = img
         self.x = y
         self.y = x
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
-        self.screen_rect = screen.get_rect()
 
-    def render_font(self, word, x, y, font, color):
-        my_font = pygame.font.SysFont('arial', 36)
-        new_label = my_font.render(word, 1, (color))
-        return new_label
+    def update(self):
+        self.rect.y -= 5
 
 # Classe da tortilla
 
@@ -237,6 +248,14 @@ all_sprites.add(campainha)
 pedido = Pedido('AFPCC.png', 820, 205)
 all_sprites.add(pedido)
 
+# Adiciona o +100 na lista de sprites
+ganhou_dindin = Dindin(DINDIN_IMG_GANHOU, gdx, gdy)
+all_sprites.add(ganhou_dindin)
+
+# Adiciona o -100 na lista de sprites
+perdeu_dindin = Dindin(DINDIN_IMG_PERDEU, pdx, pdy)
+all_sprites.add(perdeu_dindin)
+
 # Tela de fundo
 background = pygame.image.load('planofundo1.jpg').convert()
 background_rect = background.get_rect()
@@ -277,7 +296,6 @@ try:
                             "{0}.png".format(palavra))
                         # elif palavra not in letras:
                         #     tortilla.image = pygame.image.load('ERRO.png')
-                        all_sprites.update()
                         # tortilla.troca_ingrediente(ingrediente_selecionado.letra)
                         ingrediente_selecionado = None
 
@@ -295,21 +313,23 @@ try:
                                 dindin += 100
                                 print("Seu dinheiro: {0}".format(dindin))
                                 vel = 50
-                                pygame.image.load('ganhoudindin.png')
+                                dvel = 20
                                 pronto = True
                                 counter += 1
                                 listacomb = random.randint(1, 3)
+                                dindin = Dindin(DINDIN_IMG_GANHOU, WIDTH/2, HEIGHT)
+                                all_sprites.add(dindin)
                                 print(listacomb)
+
                         elif verifica == False:
                             print("Sequência incorreta")
                             dindin -= 100
                             listacomb = random.randint(1, 3)
                             print(listacomb)
                             print("Ihhh... Seu dinheiro: {0}".format(dindin))
-                            Dindin.render_font(
-                                dindin, 20, 0, arial, 'WHITE')
                             vel = 50
-                            pygame.image.load('perdeudindin.png')
+                            # pygame.image.load('perdeudindin.png')
+                            pdx += dvel
                             pronto = True
                             if dindin <= 0:
                                 print("É sério que você perdeu um jogo tão fácil?")
@@ -335,6 +355,7 @@ try:
         all_sprites.draw(screen)
         fpsClock.tick(FPS)
         pygame.display.update()
+
 except:
     pass
 
