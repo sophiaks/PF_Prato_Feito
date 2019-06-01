@@ -28,6 +28,10 @@ print(listacomb)
 # Lista de letras
 lista_letras = []
 
+# Lista de letras do menu
+listatudo = ['A', 'AF', 'AFP', 'AFPC', 'AFPCC', 'S', 'SF',
+             'SFA', 'SFAC', 'SFACP', 'S', 'SS', 'SSP', 'SSPC', 'SSPCC']
+
 # LISTA DO MENU #
 comb1 = ['A', 'F', 'P', 'C', 'C']
 comb2 = ['S', 'F', 'A', 'C', 'P']
@@ -122,10 +126,6 @@ class Tortilla(pygame.sprite.Sprite):
         self.rect.y = self.y
         self.screen_rect = screen.get_rect()
 
-        # Lista de letras do menu
-        lista = ['A', 'AF', 'AFP', 'AFPC', 'AFPCC', 'S', 'SF', 'SFA',
-                 'SFAC', 'SFACP', 'S', 'SS', 'SSP', 'SSPC', 'SSPCC']
-
         # Carregar as imagens dos ingredientes
         self.images = {}
         for nome in lista_ingredientes:
@@ -133,7 +133,7 @@ class Tortilla(pygame.sprite.Sprite):
                 pygame.image.load('{0}.png'.format(nome)), (40, 40))
             self.images[nome].set_colorkey(WHITE)
         self.images['ERRO'] = pygame.transform.scale(
-            pygame.image.load('ERRO.png'), (2, 2))
+            pygame.image.load('ERRO.png'), (200, 200))
 
 # Assim que você clica na tortilla, a imagem é atualizada para o combo.
 
@@ -291,15 +291,17 @@ try:
                     t = tortilla.rect
                     # Se clicar dentro da área do burrito:
                     if t.x <= cx and cx <= t.x+250 and t.y <= cy and cy <= t.y + 250:
-                        lista_letras.append(ingrediente_selecionado.letra)
-                        palavra += ingrediente_selecionado.letra
-                        print(palavra)
-                        if palavra in lista_letras:
-                            tortilla.image = pygame.image.load(
-                                "{0}.png".format(palavra))
-                        elif palavra not in lista_letras:
-                            tortilla.image = pygame.image.load('ERRO.png')
-                        ingrediente_selecionado = None
+                        if tortilla.image != pygame.image.load('ERRO.png'):
+                            lista_letras.append(ingrediente_selecionado.letra)
+                            palavra += ingrediente_selecionado.letra
+                            print(palavra)
+                            if palavra in listatudo:
+                                tortilla.image = pygame.image.load(
+                                    "{0}.png".format(palavra))
+                            elif palavra not in listatudo:
+                                tortilla.image = pygame.image.load('ERRO.png')
+                                vel = 50
+                            ingrediente_selecionado = None
 
                 if event.type == pygame.MOUSEBUTTONDOWN and ingrediente_selecionado is None:
                     ca = campainha.rect
@@ -361,8 +363,9 @@ try:
         fpsClock.tick(FPS)
         pygame.display.update()
 
-# except:
-#     pass
+except:
+    pass
+
 
 finally:
     pygame.quit()
