@@ -5,9 +5,14 @@ from pygame.locals import *
 import random
 pygame.font.init()
 # Inicializa o jogo
+
 pygame.init()
 pygame.mixer.init()
-
+musica = 'musicapizza.mp3'
+# Música
+pygame.mixer.init()
+pygame.mixer.music.load(musica)
+pygame.mixer.music.play()
 # Variável pra ver se o burrito tá pronto:
 pronto = False
 
@@ -126,11 +131,11 @@ class Tortilla(pygame.sprite.Sprite):
         self.rect.y = self.y
         self.screen_rect = screen.get_rect()
 
-        # Carregar as imagens dos ingredientes
+        # Carregar as imagens dos burritos com ingredientes
         self.images = {}
         for nome in lista_ingredientes:
             self.images[nome] = pygame.transform.scale(
-                pygame.image.load('{0}.png'.format(nome)), (40, 40))
+                pygame.image.load('{0}.png'.format(nome)), (1, 1))
             self.images[nome].set_colorkey(WHITE)
         self.images['ERRO'] = pygame.transform.scale(
             pygame.image.load('ERRO.png'), (200, 200))
@@ -160,7 +165,7 @@ class Esteira(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.x = x
         self.y = y
-        esteira = pygame.image.load('planofundoesteira3.png')
+        esteira = pygame.image.load('planofundoesteira4.png')
         self.image = pygame.transform.scale(esteira, (1000, 850))
         self.rect = self.image.get_rect()
         self.rect.x = self.x
@@ -216,7 +221,7 @@ class Pedido(pygame.sprite.Sprite):
         pedido = pygame.image.load(
             '{0}.png'.format(combcompleto[listacomb-1])).convert()
         self.image = pedido
-        self.image = pygame.transform.scale(self.image, (130, 130))
+        self.image = pygame.transform.scale(self.image, (20, 20))
         self.image.set_colorkey(WHITE)
         self.rect = self.image.get_rect()
         self.rect.x = self.x
@@ -248,7 +253,7 @@ campainha = Campainha(700, 370)
 all_sprites.add(campainha)
 
 # Adiciona o pedido na lista de sprites
-pedido = Pedido('AFPCC.png', 820, 205)
+pedido = Pedido('AFPCC.png', 770, 180)
 all_sprites.add(pedido)
 
 # Adiciona o +100 na lista de sprites
@@ -311,22 +316,21 @@ try:
                         t = tortilla.rect
                         verifica = all(
                             e in lista_letras for e in lista_menu[listacomb-1])
-                        if verifica == True:
-                            if pronto == False:
-                                print("UHUL TÁ CERTO")
-                                dindin += 100
-                                print("Seu dinheiro: {0}".format(dindin))
-                                vel = 50
-                                pronto = True
-                                counter += 1
-                                listacomb = random.randint(1, 3)
-                                print("Antes")
-                                dinheiromais = Dindin(
-                                    DINDIN_IMG_GANHOU, 500, 400)
-                                all_sprites.add(dinheiromais)
-                                print(dinheiromais)
-                                print("depois")
-                                print(listacomb)
+                        if verifica == True and pronto == False:
+                            print("UHUL TÁ CERTO")
+                            dindin += 100
+                            print("Seu dinheiro: {0}".format(dindin))
+                            vel = 50
+                            pronto = True
+                            counter += 1
+                            listacomb = random.randint(1, 3)
+                            print("Antes")
+                            dinheiromais = Dindin(
+                                DINDIN_IMG_GANHOU, 500, 400)
+                            all_sprites.add(dinheiromais)
+                            print(dinheiromais)
+                            print("depois")
+                            print(listacomb)
 
                         elif verifica == False:
                             print("Sequência incorreta")
@@ -346,6 +350,8 @@ try:
                                 burrito.kill()
                             all_sprites.update()
                 if t.x > 1000:
+                    verifica = all(
+                        e in lista_letras for e in lista_menu[listacomb-1])
                     vel = counter
                     palavra = ''
                     lista_letras = []
@@ -356,6 +362,14 @@ try:
                     tortilla.image = tortilla.img_tortilla_vazia
                     filename = "{0}.png".format(combcompleto[listacomb - 1])
                     pedido.image = pygame.image.load(filename)
+                    if verifica == True and pronto == False:
+                        dindin += 100
+                        dinheiromais = Dindin(
+                            DINDIN_IMG_GANHOU, 500, 400)
+                    elif verifica == False and pronto == False:
+                        dindin -= 100
+                        dinheiromenos = Dindin(
+                            DINDIN_IMG_PERDEU, 500, 400)
 
         screen.blit(background, background_rect)
         all_sprites.update()
