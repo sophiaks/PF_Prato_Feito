@@ -1,7 +1,7 @@
 import pygame
 import sys
-from os import path
 import random
+from os import path
 pygame.font.init()
 # 17,22
 # Inicializa o jogo
@@ -32,6 +32,7 @@ lista_ingredientes = ['salada', 'arroz', 'peixe', 'feijao', 'cogumelo']
 listacomb = random.randint(1, 3)
 
 # Lista de letras
+
 lista_letras = []
 
 # Lista de letras do menu
