@@ -86,7 +86,6 @@ DINDIN_IMG_GANHOU = pygame.transform.scale(
 DINDIN_IMG_PERDEU = pygame.transform.scale(
     pygame.image.load('perdeudindin.png'), (100, 100))
 
-
 # Classe do dinheiro
 
 
@@ -100,7 +99,7 @@ class Dindin(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
-
+    
     def update(self):
         self.rect.y -= 5
 
@@ -129,14 +128,12 @@ class Tortilla(pygame.sprite.Sprite):
                 '{0}.png'.format(nome)), (250, 250))
             self.images[nome].set_colorkey(BLACK)
         self.images['ERRO'] = pygame.image.load('ERRO.png')
-
 # Assim que você clica na tortilla, a imagem é atualizada para o combo.
 
     # Atualiza a posição do sprite
 
     def update(self):
         self.rect.x += vel
-
 
 # Classe da esteira
 class Esteira(pygame.sprite.Sprite):
@@ -149,7 +146,6 @@ class Esteira(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
-
 # Classe da campainha
 
 
@@ -171,13 +167,12 @@ class Ingrediente(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.x = x
         self.y = y
-        self.image = pygame.image.load(image).convert_alpha()
+        self.image = pygame.image.load(image)
         self.image = pygame.transform.scale(self.image, (100, 100))
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
         self.letra = letra
-
 # Classe do pedido (o primeiro burrito vai sempre ser o AFPCC)
 
 
@@ -187,14 +182,13 @@ class Pedido(pygame.sprite.Sprite):
         self.x = x
         self.y = y
         pedido = pygame.image.load(
-            '{0}.png'.format(combcompleto[listacomb-1])).convert_alpha()
+            '{0}.png'.format(combcompleto[listacomb-1]))
         self.image = pedido
         self.image = pygame.transform.scale(self.image, (250, 250))
         self.image.set_colorkey(BLACK)
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
-
 
 all_sprites = pygame.sprite.Group()
 # Adiciona a esteira na lista de sprites
@@ -234,11 +228,14 @@ all_sprites.add(perdeu_dindin)
 background = pygame.image.load('planofundo.jpg').convert()
 background_rect = background.get_rect()
 
-font = pygame.font.SysFont(None, 25)
+
+# font = pygame.font.SysFont(None, 25)
+
 
 def n_burritos_prontos(n_burritos_prontos):
     numero = font.render(str(n_burritos_prontos), True)
-    gameDisplay.blit(numero, [100,100])
+    screen.blit(numero, [100, 100])
+
 
 # Carrega a imagem de início
 telainicio = pygame.transform.scale(
@@ -253,7 +250,6 @@ all_sprites.add(telainicio)
 try:
 
     while True:
-
         for event in pygame.event.get():
             if event.type == QUIT:
                 pygame.quit()
@@ -309,8 +305,7 @@ try:
                             all_sprites.add(dinheiromenos)
                             vel = 50
                             pronto = True
-                            if dindin <= 0:
-                                burrito.kill()
+                            # if dindin <= 0:
                             all_sprites.update()
                 if t.x > 1000:
                     verifica = all(
@@ -340,8 +335,8 @@ try:
         fpsClock.tick(FPS)
         pygame.display.update()
 
-# except:
-#     pass
+except:
+    pass
 
 finally:
     pygame.quit()
