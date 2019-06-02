@@ -236,14 +236,14 @@ background_rect = background.get_rect()
 
 font = pygame.font.SysFont(None, 25)
 
-def n_burritos_prontos(n_burritos_prontos, color):
+def n_burritos_prontos(n_burritos_prontos):
     numero = font.render(str(n_burritos_prontos), True, BLUE)
     gameDisplay.blit(numero, [100,100])
 
 # Carrega a imagem de início
-# telainicio = pygame.transform.scale(
-#     pygame.image.load('Telainicio.png'), (1000, 750))
-# all_sprites.add(telainicio)
+telainicio = pygame.transform.scale(
+    pygame.image.load('Telainicio.png'), (1000, 750))
+all_sprites.add(telainicio)
 
 #------------------------------------------------------------#
 #------------------------------------------------------------#
