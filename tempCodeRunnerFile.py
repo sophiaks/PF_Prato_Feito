@@ -1,2 +1,2 @@
-pedido = Pedido('AFPCC.png', 820, 205)
-# all_sprites.add(pedido)
+for i in ingredientes:
+#     all_sprites.add(i)
