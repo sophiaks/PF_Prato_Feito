@@ -1,19 +1,17 @@
 import pygame
 import sys
 from os import path
-from pygame.locals import *
 import random
 pygame.font.init()
 # 17,22
 # Inicializa o jogo
 
 pygame.init()
-pygame.mixer.init()
 musica = 'musicapizza.mp3'
 # Música
-pygame.mixer.init()
-pygame.mixer.music.load(musica)
-pygame.mixer.music.play()
+# pygame.mixer.init()
+# pygame.mixer.music.load(musica)
+# pygame.mixer.music.play()
 # Variável pra ver se o burrito tá pronto:
 pronto = False
 
@@ -80,16 +78,6 @@ BLACK = (0,   0,   0)
 GRAY = (96, 96, 96)
 WHITE = (255, 255, 255)
 RED = (255,   0,   0)
-DARK_RED = (153, 0, 0)
-GREEN = (0, 255,   0)
-DARK_GREEN = (0, 102, 0)
-BLUE = (0,   0, 255)
-NAVY = (0, 0, 102)
-OLIVE = (128, 128, 0)
-GOLD = (255, 215, 0)
-PINK = (255, 51, 153)
-ORANGE = (255, 140, 0)
-BROWN = (139, 69, 19)
 
 DINDIN_IMG_GANHOU = pygame.transform.scale(
     pygame.image.load('ganhoudindin.png'), (100, 100))
@@ -154,7 +142,7 @@ class Esteira(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.x = x
         self.y = y
-        esteira = pygame.image.load('planofundoesteiravf.png')
+        esteira = pygame.image.load('planofundoesteira.png')
         self.image = pygame.transform.scale(esteira, (1000, 850))
         self.rect = self.image.get_rect()
         self.rect.x = self.x
@@ -248,9 +236,9 @@ background_rect = background.get_rect()
 
 
 # Carrega a imagem de início
-telainicio = pygame.transform.scale(
-    pygame.image.load('Telainicio.png'), (1000, 750))
-all_sprites.add(telainicio)
+# telainicio = pygame.transform.scale(
+#     pygame.image.load('Telainicio.png'), (1000, 750))
+# all_sprites.add(telainicio)
 
 #------------------------------------------------------------#
 #------------------------------------------------------------#
@@ -352,6 +340,3 @@ except:
 finally:
     pygame.quit()
     sys.exit(0)
-
-
-# Ingrediente('{0}.png'.format(ing), r.x, r.y, Ingrediente.ing.letra)
