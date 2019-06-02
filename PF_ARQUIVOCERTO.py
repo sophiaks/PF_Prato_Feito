@@ -9,9 +9,10 @@ pygame.font.init()
 pygame.init()
 musica = 'musicapizza.mp3'
 # Música
-# pygame.mixer.init()
-# pygame.mixer.music.load(musica)
-# pygame.mixer.music.play()
+pygame.mixer.init()
+pygame.mixer.music.load(musica)
+pygame.mixer.music.play()
+
 # Variável pra ver se o burrito tá pronto:
 pronto = False
 
@@ -206,8 +207,6 @@ ingredientes.append(Ingrediente('salada.png', 270, 430, 'S'))
 ingredientes.append(Ingrediente('cogumelo.png', 470, 430, 'C'))
 ingredientes.append(Ingrediente('peixe.png', 650, 430, 'P'))
 ingredientes.append(Ingrediente("feijao.png", 830, 430, 'F'))
-# for i in ingredientes:
-#     all_sprites.add(i)
 ingrediente_selecionado = None
 
 # Adiciona a tortilla na lista de sprites
@@ -237,7 +236,7 @@ background_rect = background.get_rect()
 font = pygame.font.SysFont(None, 25)
 
 def n_burritos_prontos(n_burritos_prontos):
-    numero = font.render(str(n_burritos_prontos), True, BLUE)
+    numero = font.render(str(n_burritos_prontos), True)
     gameDisplay.blit(numero, [100,100])
 
 # Carrega a imagem de início
@@ -340,8 +339,8 @@ try:
         fpsClock.tick(FPS)
         pygame.display.update()
 
-except:
-    pass
+# except:
+#     pass
 
 finally:
     pygame.quit()
