@@ -99,7 +99,7 @@ class Dindin(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
-    
+
     def update(self):
         self.rect.y -= 5
 
@@ -189,6 +189,7 @@ class Pedido(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
+
 
 all_sprites = pygame.sprite.Group()
 # Adiciona a esteira na lista de sprites
