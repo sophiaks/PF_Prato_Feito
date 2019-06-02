@@ -84,7 +84,12 @@ DINDIN_IMG_GANHOU = pygame.transform.scale(
 DINDIN_IMG_PERDEU = pygame.transform.scale(
     pygame.image.load('perdeudindin.png'), (100, 100))
 
-# score_font = pygame.font.Font(path.join(fnt_dir, "PressStart2P.ttf"), 28)
+# score = 0
+
+# assets["score_font"] = pygame.font.Font(path.join(dindin.ttf), 28)
+# score_font = assets["score_font"]
+# text_surface = score_font.render("{:08d}".format(score), True, NAVY)
+
 # Classe do dinheiro
 
 
