@@ -9,9 +9,10 @@ pygame.font.init()
 pygame.init()
 musica = 'musicapizza.mp3'
 # Música
-# pygame.mixer.init()
-# pygame.mixer.music.load(musica)
-# pygame.mixer.music.play()
+pygame.mixer.init()
+pygame.mixer.music.load(musica)
+pygame.mixer.music.play()
+
 # Variável pra ver se o burrito tá pronto:
 pronto = False
 
@@ -85,11 +86,6 @@ DINDIN_IMG_GANHOU = pygame.transform.scale(
 DINDIN_IMG_PERDEU = pygame.transform.scale(
     pygame.image.load('perdeudindin.png'), (100, 100))
 
-# score = 0
-
-# assets["score_font"] = pygame.font.Font(path.join(dindin.ttf), 28)
-# score_font = assets["score_font"]
-# text_surface = score_font.render("{:08d}".format(score), True, NAVY)
 
 # Classe do dinheiro
 
@@ -212,8 +208,6 @@ ingredientes.append(Ingrediente('salada.png', 270, 430, 'S'))
 ingredientes.append(Ingrediente('cogumelo.png', 470, 430, 'C'))
 ingredientes.append(Ingrediente('peixe.png', 650, 430, 'P'))
 ingredientes.append(Ingrediente("feijao.png", 830, 430, 'F'))
-# for i in ingredientes:
-#     all_sprites.add(i)
 ingrediente_selecionado = None
 
 # Adiciona a tortilla na lista de sprites
@@ -240,11 +234,16 @@ all_sprites.add(perdeu_dindin)
 background = pygame.image.load('planofundo.jpg').convert()
 background_rect = background.get_rect()
 
+font = pygame.font.SysFont(None, 25)
+
+def n_burritos_prontos(n_burritos_prontos):
+    numero = font.render(str(n_burritos_prontos), True)
+    gameDisplay.blit(numero, [100,100])
 
 # Carrega a imagem de início
-# telainicio = pygame.transform.scale(
-#     pygame.image.load('Telainicio.png'), (1000, 750))
-# all_sprites.add(telainicio)
+telainicio = pygame.transform.scale(
+    pygame.image.load('Telainicio.png'), (1000, 750))
+all_sprites.add(telainicio)
 
 #------------------------------------------------------------#
 #------------------------------------------------------------#
@@ -334,14 +333,15 @@ try:
                         dinheiromenos = Dindin(
                             DINDIN_IMG_PERDEU, 500, 400)
 
+        n_burritos_prontos(burritos_prontos)
         screen.blit(background, background_rect)
         all_sprites.update()
         all_sprites.draw(screen)
         fpsClock.tick(FPS)
         pygame.display.update()
 
-except:
-    pass
+# except:
+#     pass
 
 finally:
     pygame.quit()
