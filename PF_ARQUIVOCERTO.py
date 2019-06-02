@@ -1,12 +1,11 @@
-import pygame
 import sys
 import random
-from os import path
-pygame.font.init()
+import pygame
 # 17,22
 # Inicializa o jogo
 
 pygame.init()
+pygame.font.init()
 musica = 'musicapizza.mp3'
 # Música
 pygame.mixer.init()
@@ -136,6 +135,8 @@ class Tortilla(pygame.sprite.Sprite):
         self.rect.x += vel
 
 # Classe da esteira
+
+
 class Esteira(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
@@ -177,7 +178,7 @@ class Ingrediente(pygame.sprite.Sprite):
 
 
 class Pedido(pygame.sprite.Sprite):
-    def __init__(self, image, x, y):
+    def __init__(self,image, x, y):
         pygame.sprite.Sprite.__init__(self)
         self.x = x
         self.y = y
@@ -234,7 +235,8 @@ background_rect = background.get_rect()
 
 
 def n_burritos_prontos(n_burritos_prontos):
-    numero = font.render(str(n_burritos_prontos), True)
+    f = pygame.font.Font(None, 20)
+    numero = f.render(str(n_burritos_prontos), True)
     screen.blit(numero, [100, 100])
 
 
@@ -329,15 +331,14 @@ try:
                         dinheiromenos = Dindin(
                             DINDIN_IMG_PERDEU, 500, 400)
 
-        n_burritos_prontos(burritos_prontos)
+        # n_burritos_prontos(burritos_prontos)
         screen.blit(background, background_rect)
         all_sprites.update()
         all_sprites.draw(screen)
         fpsClock.tick(FPS)
         pygame.display.update()
-
-except:
-    pass
+# except:
+#     pass
 
 finally:
     pygame.quit()
