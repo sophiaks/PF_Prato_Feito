@@ -246,7 +246,7 @@ def n_burritos_prontos(burritos_prontos):
 # Carrega a imagem de início
 telainicio = pygame.transform.scale(
     pygame.image.load('Telainicio.png'), (1000, 750))
-all_sprites.add(telainicio)
+# all_sprites.add(telainicio)
 running = True
 # while running:
 #     # Captura o espaco, se apertar o espaco runing = False
