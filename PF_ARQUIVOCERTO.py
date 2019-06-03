@@ -1,6 +1,7 @@
 import sys
 import random
 import pygame
+from pygame.locals import*
 # 17,22
 # Inicializa o jogo
 
@@ -22,7 +23,7 @@ burritos_prontos = 0
 FPS = 120
 fpsClock = pygame.time.Clock()
 
-# String Vazia - para carregar a string.png depois
+# String Vazia - para carregar a string.png depois
 palavra = ''
 
 # Lista com ingredientes individuais
@@ -206,6 +207,9 @@ ingredientes.append(Ingrediente('peixe.png', 650, 430, 'P'))
 ingredientes.append(Ingrediente("feijao.png", 830, 430, 'F'))
 ingrediente_selecionado = None
 
+for ingrediente in ingredientes:
+    all_sprites.add(ingrediente)
+
 # Adiciona a tortilla na lista de sprites
 tortilla = Tortilla(bx, by)
 all_sprites.add(tortilla)
@@ -231,19 +235,23 @@ background = pygame.image.load('planofundo.jpg').convert()
 background_rect = background.get_rect()
 
 
-# font = pygame.font.SysFont(None, 25)
+font = pygame.font.SysFont('comicsans', 30, True)
 
-
-def n_burritos_prontos(n_burritos_prontos):
-    f = pygame.font.Font(None, 20)
-    numero = f.render(str(n_burritos_prontos), True)
+def n_burritos_prontos(burritos_prontos):
+    # font = pygame.font.Font(None, 20)
+    numero = font.render(burritos_prontos, 1, BLACK)
     screen.blit(numero, [100, 100])
 
 
 # Carrega a imagem de início
 telainicio = pygame.transform.scale(
     pygame.image.load('Telainicio.png'), (1000, 750))
-all_sprites.add(telainicio)
+# all_sprites.add(telainicio)
+running = True
+# while running:
+#     # Captura o espaco, se apertar o espaco runing = False
+
+#     # dar blit na tela inicio
 
 #------------------------------------------------------------#
 #------------------------------------------------------------#
@@ -275,8 +283,9 @@ try:
                             lista_letras.append(ingrediente_selecionado.letra)
                             palavra += ingrediente_selecionado.letra
                             if palavra in listatudo:
-                                tortilla.image = pygame.image.load(
-                                    "{0}.png".format(palavra))
+                                tortilla.image = pygame.transform.scale(pygame.image.load(
+                                    "{0}.png".format(palavra)), (250, 250))
+
                             elif palavra not in listatudo:
                                 tortilla.image = pygame.image.load('ERRO.png')
                                 vel = 50
@@ -300,6 +309,7 @@ try:
                                 DINDIN_IMG_GANHOU, 500, 400)
                             all_sprites.add(dinheiromais)
                             burritos_prontos += 1
+                            #n_burritos_prontos(burritos_prontos)
                         elif verifica == False:
                             dindin -= 100
                             listacomb = random.randint(1, 3)
@@ -308,7 +318,8 @@ try:
                             all_sprites.add(dinheiromenos)
                             vel = 50
                             pronto = True
-                            # if dindin <= 0:
+                            if dindin <= 0:
+                                burrito.kill()
                             all_sprites.update()
                 if t.x > 1000:
                     verifica = all(
@@ -319,9 +330,10 @@ try:
                     t.x = -200
                     pronto = False
                     listacomb = random.randint(1, 3)
-                    tortilla.image = tortilla.img_tortilla_vazia
+                    tortilla.image = pygame.transform.scale(tortilla.img_tortilla_vazia, (250, 250))
                     filename = "{0}.png".format(combcompleto[listacomb - 1])
-                    pedido.image = pygame.image.load(filename)
+                    pedido.image = pygame.transform.scale(pygame.image.load(filename), (250, 250))
+
                     if verifica == True:
                         dindin += 100
                         dinheiromais = Dindin(
@@ -337,8 +349,8 @@ try:
         all_sprites.draw(screen)
         fpsClock.tick(FPS)
         pygame.display.update()
-# except:
-#     pass
+except Exception as e:
+    print(e)
 
 finally:
     pygame.quit()
