@@ -51,7 +51,7 @@ lista_menu = [comb1, comb2, comb3]
 vel = 1
 counter = 1
 # Desenha a tela
-screen = pygame.display.set_mode((1000, 750))
+screen = pygame.display.set_mode((1000, 750), 0, 32)
 
 # Nome do jogo
 pygame.display.set_caption('Quatá City Burritos')
@@ -179,7 +179,7 @@ class Ingrediente(pygame.sprite.Sprite):
 
 
 class Pedido(pygame.sprite.Sprite):
-    def __init__(self, image, x, y):
+    def __init__(self,image, x, y):
         pygame.sprite.Sprite.__init__(self)
         self.x = x
         self.y = y
@@ -235,26 +235,20 @@ background = pygame.image.load('planofundo.jpg').convert()
 background_rect = background.get_rect()
 
 
-font = pygame.font.SysFont('PressStart2P.ttf', 50, True)
-screen.fill(WHITE)
-numero = font.render(str(burritos_prontos), False, BLACK)
-din = font.render(str(dindin), False, BLACK)
+font = pygame.font.SysFont('comicsans', 30, True)
 
-
+def n_burritos_prontos(burritos_prontos):
+    # font = pygame.font.Font(None, 20)
+    numero = font.render(burritos_prontos, 1, BLACK)
+    screen.blit(numero, [100, 100])
 
 
 # Carrega a imagem de início
-
-# running = True
+telainicio = pygame.transform.scale(
+    pygame.image.load('Telainicio.png'), (1000, 750))
+all_sprites.add(telainicio)
+running = True
 # while running:
-#     telainicio = pygame.transform.scale(
-#         pygame.image.load('Telainicio.png'), (1000, 750))
-#     screen.blit(telainicio, (0, 0))
-#     for event in pygame.event.get():
-#         if event.type == pygame.key.get_pressed()[pygame.K_SPACE]:
-            # screen.blit(telainicio, (0, 0))
-#             running = False
-
 #     # Captura o espaco, se apertar o espaco runing = False
 
 #     # dar blit na tela inicio
@@ -262,7 +256,7 @@ din = font.render(str(dindin), False, BLACK)
 #------------------------------------------------------------#
 #------------------------------------------------------------#
 
-t=tortilla.rect
+
 # LOOP PRINCIPAL
 try:
 
@@ -273,94 +267,86 @@ try:
                 sys.exit(0)
         # Se a pessoa clicar com o mouse:
             if event.type == pygame.MOUSEBUTTONDOWN:
-                mx, my=pygame.mouse.get_pos()
+                mx, my = pygame.mouse.get_pos()
         # Para cada ingrediente na lista de ingredientes, se a pessoa clicar dentro do retângulo do ingrediente
                 for ing in ingredientes:
-                    r=ing.rect
+                    r = ing.rect
                     if r.x <= mx and mx <= r.x + 100 and r.y <= my and my <= r.y + 100:
-                        ingrediente_selecionado=ing
+                        ingrediente_selecionado = ing
         # Se clicar e existir um ingrediente selecionado
                 if event.type == pygame.MOUSEBUTTONDOWN and ingrediente_selecionado is not None:
-                    cx, cy=pygame.mouse.get_pos()
-                    t=tortilla.rect
+                    cx, cy = pygame.mouse.get_pos()
+                    t = tortilla.rect
                     # Se clicar dentro da área do burrito:
                     if t.x <= cx and cx <= t.x+250 and t.y <= cy and cy <= t.y + 250:
                         if tortilla.image != pygame.image.load('ERRO.png'):
                             lista_letras.append(ingrediente_selecionado.letra)
                             palavra += ingrediente_selecionado.letra
                             if palavra in listatudo:
-                                tortilla.image=pygame.transform.scale(pygame.image.load(
+                                tortilla.image = pygame.transform.scale(pygame.image.load(
                                     "{0}.png".format(palavra)), (250, 250))
 
                             elif palavra not in listatudo:
-                                tortilla.image=pygame.image.load('ERRO.png')
-                                vel=50
-                            ingrediente_selecionado=None
+                                tortilla.image = pygame.image.load('ERRO.png')
+                                vel = 50
+                            ingrediente_selecionado = None
 
                 if event.type == pygame.MOUSEBUTTONDOWN and ingrediente_selecionado is None:
-                    ca=campainha.rect
-                    dx, dy=pygame.mouse.get_pos()
+                    ca = campainha.rect
+                    dx, dy = pygame.mouse.get_pos()
                     # Se você clicar na campainha
                     if ca.x <= dx <= ca.x+75 and ca.y <= dy <= ca.y + 75:
-                        # t = tortilla.rect
-                        verifica=all(
+                        t = tortilla.rect
+                        verifica = all(
                             e in lista_letras for e in lista_menu[listacomb-1])
                         if verifica == True and pronto == False:
                             dindin += 100
-                            vel=50
-                            pronto=True
+                            vel = 50
+                            pronto = True
                             counter += 1
-                            listacomb=random.randint(1, 3)
-                            dinheiromais=Dindin(
+                            listacomb = random.randint(1, 3)
+                            dinheiromais = Dindin(
                                 DINDIN_IMG_GANHOU, 500, 400)
                             all_sprites.add(dinheiromais)
                             burritos_prontos += 1
-                            screen.blit(numero, [340, 10])
-                            # n_burritos_prontos(burritos_prontos)
+                            #n_burritos_prontos(burritos_prontos)
                         elif verifica == False:
                             dindin -= 100
-                            listacomb=random.randint(1, 3)
-                            dinheiromenos=Dindin(
+                            listacomb = random.randint(1, 3)
+                            dinheiromenos = Dindin(
                                 DINDIN_IMG_PERDEU, 500, 400)
                             all_sprites.add(dinheiromenos)
-                            vel=50
-                            pronto=True
-                            screen.blit(numero, [340, 10])
+                            vel = 50
+                            pronto = True
                             if dindin <= 0:
                                 burrito.kill()
                             all_sprites.update()
                 if t.x > 1000:
-                    verifica=all(
+                    verifica = all(
                         e in lista_letras for e in lista_menu[listacomb-1])
-                    vel=counter
-                    palavra=''
-                    lista_letras=[]
-                    t.x=-200
-                    pronto=False
-                    listacomb=random.randint(1, 3)
-                    tortilla.image=pygame.transform.scale(
-                        tortilla.img_tortilla_vazia, (250, 250))
-                    filename="{0}.png".format(combcompleto[listacomb - 1])
-                    pedido.image=pygame.transform.scale(
-                        pygame.image.load(filename), (250, 250))
+                    vel = counter
+                    palavra = ''
+                    lista_letras = []
+                    t.x = -200
+                    pronto = False
+                    listacomb = random.randint(1, 3)
+                    tortilla.image = pygame.transform.scale(tortilla.img_tortilla_vazia, (250, 250))
+                    filename = "{0}.png".format(combcompleto[listacomb - 1])
+                    pedido.image = pygame.transform.scale(pygame.image.load(filename), (250, 250))
 
                     if verifica == True:
                         dindin += 100
-                        dinheiromais=Dindin(
+                        dinheiromais = Dindin(
                             DINDIN_IMG_GANHOU, 500, 400)
-                        screen.blit(din, [300, 67])
                     elif verifica == False:
                         dindin -= 100
-                        dinheiromenos=Dindin(
+                        dinheiromenos = Dindin(
                             DINDIN_IMG_PERDEU, 500, 400)
-                        screen.blit(din, [300, 67])
 
         # n_burritos_prontos(burritos_prontos)
         screen.blit(background, background_rect)
         all_sprites.update()
         all_sprites.draw(screen)
-        screen.blit(numero, [340, 10])
-        screen.blit(din, [300, 67])
         fpsClock.tick(FPS)
         pygame.display.update()
 except Exception as e:
