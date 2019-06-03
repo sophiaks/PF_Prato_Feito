@@ -238,9 +238,8 @@ background_rect = background.get_rect()
 font = pygame.font.SysFont('comicsans', 30, True)
 
 def n_burritos_prontos(burritos_prontos):
-    # font = pygame.font.Font(None, 20)
-    numero = font.render(burritos_prontos, 1, BLACK)
-    screen.blit(numero, [100, 100])
+    numero = font.render(str(burritos_prontos), 1, BLACK)
+    # screen.blit(numero, [100, 100])
 
 
 # Carrega a imagem de início
@@ -309,7 +308,7 @@ try:
                                 DINDIN_IMG_GANHOU, 500, 400)
                             all_sprites.add(dinheiromais)
                             burritos_prontos += 1
-                            #n_burritos_prontos(burritos_prontos)
+                            screen.blit(numero, [100, 100])
                         elif verifica == False:
                             dindin -= 100
                             listacomb = random.randint(1, 3)
