@@ -237,6 +237,7 @@ background_rect = background.get_rect()
 
 font = pygame.font.SysFont('comicsans', 30, True)
 
+
 def n_burritos_prontos(burritos_prontos):
     # font = pygame.font.Font(None, 20)
     numero = font.render(burritos_prontos, 1, BLACK)
@@ -244,11 +245,17 @@ def n_burritos_prontos(burritos_prontos):
 
 
 # Carrega a imagem de início
-telainicio = pygame.transform.scale(
-    pygame.image.load('Telainicio.png'), (1000, 750))
-# all_sprites.add(telainicio)
-running = True
+
+# running = True
 # while running:
+#     telainicio = pygame.transform.scale(
+#         pygame.image.load('Telainicio.png'), (1000, 750))
+#     screen.blit(telainicio, (0, 0))
+#     for event in pygame.event.get():
+#         if event.type == pygame.key.get_pressed()[pygame.K_SPACE]:
+            # screen.blit(telainicio, (0, 0))
+#             running = False
+
 #     # Captura o espaco, se apertar o espaco runing = False
 
 #     # dar blit na tela inicio
@@ -309,7 +316,7 @@ try:
                                 DINDIN_IMG_GANHOU, 500, 400)
                             all_sprites.add(dinheiromais)
                             burritos_prontos += 1
-                            #n_burritos_prontos(burritos_prontos)
+                            # n_burritos_prontos(burritos_prontos)
                         elif verifica == False:
                             dindin -= 100
                             listacomb = random.randint(1, 3)
@@ -330,9 +337,11 @@ try:
                     t.x = -200
                     pronto = False
                     listacomb = random.randint(1, 3)
-                    tortilla.image = pygame.transform.scale(tortilla.img_tortilla_vazia, (250, 250))
+                    tortilla.image = pygame.transform.scale(
+                        tortilla.img_tortilla_vazia, (250, 250))
                     filename = "{0}.png".format(combcompleto[listacomb - 1])
-                    pedido.image = pygame.transform.scale(pygame.image.load(filename), (250, 250))
+                    pedido.image = pygame.transform.scale(
+                        pygame.image.load(filename), (250, 250))
 
                     if verifica == True:
                         dindin += 100
