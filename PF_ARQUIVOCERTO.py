@@ -22,7 +22,8 @@ burritos_prontos = 0
 FPS = 120
 fpsClock = pygame.time.Clock()
 
-# String Vazia - para carregar a string.png depois
+# String Vazia - para carregar
+ a string.png depois
 palavra = ''
 
 # Lista com ingredientes individuais
@@ -231,19 +232,18 @@ background = pygame.image.load('planofundo.jpg').convert()
 background_rect = background.get_rect()
 
 
-# font = pygame.font.SysFont(None, 25)
+font = pygame.font.SysFont('comicsans', 30, True)
 
-
-def n_burritos_prontos(n_burritos_prontos):
-    f = pygame.font.Font(None, 20)
-    numero = f.render(str(n_burritos_prontos), True)
+def n_burritos_prontos(burritos_prontos):
+    # f = pygame.font.Font(None, 20)
+    numero = font.render(burritos_prontos, 1, BLACK)
     screen.blit(numero, [100, 100])
 
 
 # Carrega a imagem de início
 telainicio = pygame.transform.scale(
     pygame.image.load('Telainicio.png'), (1000, 750))
-all_sprites.add(telainicio)
+# all_sprites.add(telainicio)
 
 #------------------------------------------------------------#
 #------------------------------------------------------------#
@@ -337,8 +337,8 @@ try:
         all_sprites.draw(screen)
         fpsClock.tick(FPS)
         pygame.display.update()
-# except:
-#     pass
+except:
+    pass
 
 finally:
     pygame.quit()
