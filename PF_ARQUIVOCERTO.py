@@ -239,9 +239,8 @@ font = pygame.font.SysFont('comicsans', 30, True)
 
 
 def n_burritos_prontos(burritos_prontos):
-    # font = pygame.font.Font(None, 20)
-    numero = font.render(burritos_prontos, 1, BLACK)
-    screen.blit(numero, [100, 100])
+    numero = font.render(str(burritos_prontos), 1, BLACK)
+    # screen.blit(numero, [100, 100])
 
 
 # Carrega a imagem de início
