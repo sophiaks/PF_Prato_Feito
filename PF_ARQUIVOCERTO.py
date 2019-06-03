@@ -22,8 +22,7 @@ burritos_prontos = 0
 FPS = 120
 fpsClock = pygame.time.Clock()
 
-# String Vazia - para carregar
- a string.png depois
+# String Vazia - para carregara string.png depois
 palavra = ''
 
 # Lista com ingredientes individuais
