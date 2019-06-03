@@ -179,7 +179,7 @@ class Ingrediente(pygame.sprite.Sprite):
 
 
 class Pedido(pygame.sprite.Sprite):
-    def __init__(self,image, x, y):
+    def __init__(self, image, x, y):
         pygame.sprite.Sprite.__init__(self)
         self.x = x
         self.y = y
