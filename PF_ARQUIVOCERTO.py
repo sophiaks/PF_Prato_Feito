@@ -367,12 +367,15 @@ try:
                         dinheiromais = Dindin(
                             DINDIN_IMG_GANHOU, 500, 400)
                         screen.blit(din, [300, 67])
+                        dindin += 100
+                        burritos_prontos += 1
                         numero = font.render(str(burritos_prontos), False, BLACK)
                         din = font.render(str(dindin), False, BLACK)
                         pygame.display.flip()
                     elif verifica == False and nao_campainha == True:
                         dinheiromenos = Dindin(
                             DINDIN_IMG_PERDEU, 500, 400)
+                        dindin -= 100
                         screen.blit(din, [300, 67])
                         din = font.render(str(dindin), False, BLACK)
 
