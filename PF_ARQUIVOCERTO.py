@@ -7,8 +7,9 @@ from pygame.locals import*
 
 pygame.init()
 pygame.font.init()
-musica = 'musicapizza.mp3'
+
 # Música
+musica = 'musicapizza.mp3'
 pygame.mixer.init()
 pygame.mixer.music.load(musica)
 
