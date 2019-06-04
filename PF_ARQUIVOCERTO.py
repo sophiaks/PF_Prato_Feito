@@ -361,7 +361,7 @@ try:
                                 arq = open('HIGHCORES.txt', 'w')
                                 texto = "{0}".format(burritos_prontos)
                                 for score in arq:
-                                    if burritos_prontos > score:
+                                    if burritos_prontos > float(score):
                                         arq.write(burritos_prontos)
                                 arq.close()
 
@@ -388,7 +388,7 @@ try:
                             str(burritos_prontos), False, BLACK)
                         din = font.render(str(dindin), False, BLACK)
                         pygame.display.flip()
-                    elif verifica == False and nao_campainha == True:
+                    elif verifica == False:
                         dinheiromenos = Dindin(
                             DINDIN_IMG_PERDEU, 500, 400)
                         dindin -= 100
