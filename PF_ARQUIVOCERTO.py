@@ -360,9 +360,10 @@ try:
                                  # ADD TO HIGHSCORE
                                 arq = open('HIGHCORES.txt', 'w')
                                 texto = "{0}".format(burritos_prontos)
-                                for score in arq:
-                                    if burritos_prontos > score:
-                                        arq.write(burritos_prontos)
+                                if burritos_prontos > score:
+                                    arq.write(texto)
+                                else:
+                                    print("Oi")
                                 arq.close()
 
                 if t.x > 1000:
