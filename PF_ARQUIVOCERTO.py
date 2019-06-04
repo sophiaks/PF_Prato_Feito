@@ -336,13 +336,13 @@ try:
                             dinheiromenos = Dindin(
                                 DINDIN_IMG_PERDEU, 500, 400)
                             all_sprites.add(dinheiromenos)
+                            din = font.render(str(dindin), False, BLACK)
                             vel = 50
                             screen.fill(pygame.Color("BLACK"))
                             screen.blit(numero, [340, 10])
                             pygame.display.update()
                             if dindin <= 0:
                                 burrito.kill()
-                            din = font.render(str(dindin), False, BLACK)
                 if t.x > 1000:
                     verifica = all(
                         e in lista_letras for e in lista_menu[listacomb-1])
