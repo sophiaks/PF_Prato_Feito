@@ -13,7 +13,8 @@ musica = 'musicapizza.mp3'
 pygame.mixer.init()
 pygame.mixer.music.load(musica)
 
-# Variável pra ver se o burrito tá pronto:
+# Arquivo de highscore:
+arq = open('HIGHCORES.txt', 'w')
 
 # Variáveis para a quantidade de burritos e highscore
 burritos_prontos = 0
@@ -87,6 +88,7 @@ DINDIN_IMG_PERDEU = pygame.transform.scale(
 
 # Classe do dinheiro
 
+
 class Dindin(pygame.sprite.Sprite):
     def __init__(self, img, x, y):
         pygame.sprite.Sprite.__init__(self)
@@ -102,6 +104,7 @@ class Dindin(pygame.sprite.Sprite):
         self.rect.y -= 5
 
 # Classe da tortilla
+
 
 class Tortilla(pygame.sprite.Sprite):
 
@@ -134,6 +137,7 @@ class Tortilla(pygame.sprite.Sprite):
 
 # Classe da esteira
 
+
 class Esteira(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
@@ -147,6 +151,7 @@ class Esteira(pygame.sprite.Sprite):
 
 # Classe da campainha
 
+
 class Campainha(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
@@ -159,6 +164,8 @@ class Campainha(pygame.sprite.Sprite):
         self.rect.y = self.y
 
 # Classe de ingredientes
+
+
 class Ingrediente(pygame.sprite.Sprite):
     def __init__(self, image, x, y, letra):
         pygame.sprite.Sprite.__init__(self)
@@ -173,6 +180,7 @@ class Ingrediente(pygame.sprite.Sprite):
 
 # Classe do pedido (o primeiro burrito vai sempre ser o AFPCC)
 
+
 class Pedido(pygame.sprite.Sprite):
     def __init__(self, image, x, y):
         pygame.sprite.Sprite.__init__(self)
@@ -186,6 +194,7 @@ class Pedido(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
+
 
 all_sprites = pygame.sprite.Group()
 # Adiciona a esteira na lista de sprites
@@ -326,7 +335,8 @@ try:
                                     DINDIN_IMG_GANHOU, 500, 400)
                                 all_sprites.add(dinheiromais)
                                 burritos_prontos += 1
-                                numero = font.render(str(burritos_prontos), False, BLACK)
+                                numero = font.render(
+                                    str(burritos_prontos), False, BLACK)
                                 din = font.render(str(dindin), False, BLACK)
                                 screen.blit(numero, [340, 10])
                                 pygame.display.update()
@@ -342,6 +352,10 @@ try:
                             pygame.display.update()
                             if dindin <= 0:
                                 burrito.kill()
+                                # ADD TO HIGHSCORE
+                                texto = "{0}".format(burritos_prontos)
+                                arq.write(texto)
+                                arq.close()
                             din = font.render(str(dindin), False, BLACK)
                 if t.x > 1000:
                     verifica = all(
@@ -362,7 +376,8 @@ try:
                         screen.blit(din, [300, 67])
                         dindin += 100
                         burritos_prontos += 1
-                        numero = font.render(str(burritos_prontos), False, BLACK)
+                        numero = font.render(
+                            str(burritos_prontos), False, BLACK)
                         din = font.render(str(dindin), False, BLACK)
                         pygame.display.flip()
                     elif verifica == False and nao_campainha == True:
@@ -380,13 +395,6 @@ try:
         screen.blit(din, [300, 67])
         fpsClock.tick(FPS)
         pygame.display.update()
-        #ADD TO HIGHSCORE
-        arq = open('/tmp/HIGHCORES.txt', 'w')
-        texto = "{0}".format(burritos_prontos)
-        arq.write(texto)
-        arq.close()
-
-
 
 except Exception as e:
     print(e)
