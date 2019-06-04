@@ -249,7 +249,6 @@ while running:
     pygame.display.update()
     for event in pygame.event.get():
         if event.type == pygame.MOUSEBUTTONDOWN:
-            print("Olá")
             running = False
 
 screen.blit(telainicio, [0, 0])
@@ -348,7 +347,6 @@ try:
                             screen.fill(pygame.Color("BLACK"))
                             screen.blit(numero, [340, 10])
                             pygame.display.update()
-                            print(dindin)
                             if dindin <= 0:
                                 burrito.kill()
                             din = font.render(str(dindin), False, BLACK)
@@ -384,7 +382,6 @@ try:
         pygame.display.flip()
         screen.blit(numero, [340, 10])
         screen.blit(din, [300, 67])
-        print(dindin)
         fpsClock.tick(FPS)
         pygame.display.update()
 
