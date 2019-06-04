@@ -378,7 +378,7 @@ try:
                     filename = "{0}.png".format(combcompleto[listacomb - 1])
                     pedido.image = pygame.transform.scale(
                         pygame.image.load(filename), (250, 250))
-                    if verifica == True and nao_campainha == True:
+                    if verifica == True:
                         dinheiromais = Dindin(
                             DINDIN_IMG_GANHOU, 500, 400)
                         screen.blit(din, [300, 67])
