@@ -280,7 +280,7 @@ screen.blit(instrucoes2, [0, 0])
 pygame.mixer.music.play(-1)
 #------------------------------------------------------------#
 #------------------------------------------------------------#
-
+nao_campainha = True
 t = tortilla.rect
 
 # LOOP PRINCIPAL
@@ -321,9 +321,9 @@ try:
                     dx, dy = pygame.mouse.get_pos()
                     # Se você clicar na campainha
                     if ca.x <= dx <= ca.x+75 and ca.y <= dy <= ca.y + 75:
-                        # t = tortilla.rect
                         verifica = all(
                             e in lista_letras for e in lista_menu[listacomb-1])
+                        nao_campainha = False
                         if verifica == True:
                             if len(lista_letras) == 5:
                                 dindin += 100
@@ -334,9 +334,10 @@ try:
                                     DINDIN_IMG_GANHOU, 500, 400)
                                 all_sprites.add(dinheiromais)
                                 burritos_prontos += 1
+                                numero = font.render(str(burritos_prontos), False, BLACK)
+                                din = font.render(str(dindin), False, BLACK)
                                 screen.blit(numero, [340, 10])
                                 pygame.display.update()
-                            # n_burritos_prontos(burritos_prontos)
                         elif verifica == False:
                             dindin -= 100
                             listacomb = random.randint(1, 3)
@@ -350,6 +351,7 @@ try:
                             print(dindin)
                             if dindin <= 0:
                                 burrito.kill()
+                            din = font.render(str(dindin), False, BLACK)
                 if t.x > 1000:
                     verifica = all(
                         e in lista_letras for e in lista_menu[listacomb-1])
@@ -363,15 +365,18 @@ try:
                     filename = "{0}.png".format(combcompleto[listacomb - 1])
                     pedido.image = pygame.transform.scale(
                         pygame.image.load(filename), (250, 250))
-                    if verifica == True:
+                    if verifica == True and nao_campainha == True:
                         dinheiromais = Dindin(
                             DINDIN_IMG_GANHOU, 500, 400)
                         screen.blit(din, [300, 67])
+                        numero = font.render(str(burritos_prontos), False, BLACK)
+                        din = font.render(str(dindin), False, BLACK)
                         pygame.display.flip()
-                    elif verifica == False:
+                    elif verifica == False and nao_campainha == True:
                         dinheiromenos = Dindin(
                             DINDIN_IMG_PERDEU, 500, 400)
                         screen.blit(din, [300, 67])
+                        din = font.render(str(dindin), False, BLACK)
 
         # n_burritos_prontos(burritos_prontos)
         screen.blit(background, background_rect)
