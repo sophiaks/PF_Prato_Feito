@@ -380,9 +380,15 @@ try:
         pygame.display.flip()
         screen.blit(numero, [340, 10])
         screen.blit(din, [300, 67])
-        print(dindin)
         fpsClock.tick(FPS)
         pygame.display.update()
+        #ADD TO HIGHSCORE
+        arq = open('/tmp/HIGHCORES.txt', 'w')
+        texto = "{0}".format(burritos_prontos)
+        arq.write(texto)
+        arq.close()
+
+
 
 except Exception as e:
     print(e)
