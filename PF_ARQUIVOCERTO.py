@@ -378,7 +378,6 @@ try:
                         screen.blit(din, [300, 67])
                         din = font.render(str(dindin), False, BLACK)
 
-        # n_burritos_prontos(burritos_prontos)
         screen.blit(background, background_rect)
         all_sprites.update()
         all_sprites.draw(screen)
