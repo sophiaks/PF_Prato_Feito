@@ -15,7 +15,6 @@ pygame.mixer.music.load(musica)
 
 # Arquivo de highscore:
 arq = open('HIGHCORES.txt', 'w')
-arquivo = open("HIGHCORES.txt", "r")
 
 # Variáveis para a quantidade de burritos e highscore
 burritos_prontos = 0
@@ -278,6 +277,7 @@ while instru2:
             instru2 = False
 
 screen.blit(instrucoes2, [0, 0])
+
 pygame.mixer.music.play(-1)
 #------------------------------------------------------------#
 #------------------------------------------------------------#
@@ -353,10 +353,17 @@ try:
                             pygame.display.update()
                             if dindin <= 0:
                                 # ADD TO HIGHSCORE
+                                # texto = "{0}".format(burritos_prontos)
+                                # arq.write(texto)
+                                # arq.close()
+                                # burrito.kill()
+                                 # ADD TO HIGHSCORE
+                                arq = open('HIGHCORES.txt', 'w')
                                 texto = "{0}".format(burritos_prontos)
-                                arq.write(texto)
+                                for score in arq:
+                                    if burritos_prontos > score:
+                                        arq.write(burritos_prontos)
                                 arq.close()
-                                burrito.kill()
 
                 if t.x > 1000:
                     verifica = all(
@@ -396,6 +403,7 @@ try:
         screen.blit(din, [300, 67])
         fpsClock.tick(FPS)
         pygame.display.update()
+
 
 except Exception as e:
     print(e)
