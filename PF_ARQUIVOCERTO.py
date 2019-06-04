@@ -389,7 +389,7 @@ try:
                             str(burritos_prontos), False, BLACK)
                         din = font.render(str(dindin), False, BLACK)
                         pygame.display.flip()
-                    elif verifica == False and nao_campainha == True:
+                    elif verifica == False:
                         dinheiromenos = Dindin(
                             DINDIN_IMG_PERDEU, 500, 400)
                         dindin -= 100
