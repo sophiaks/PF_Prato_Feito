@@ -2,13 +2,14 @@ import sys
 import random
 import pygame
 from pygame.locals import*
-# 17,22
+
 # Inicializa o jogo
 
 pygame.init()
 pygame.font.init()
-musica = 'musicapizza.mp3'
+
 # Música
+musica = 'musicapizza.mp3'
 pygame.mixer.init()
 pygame.mixer.music.load(musica)
 
@@ -86,7 +87,6 @@ DINDIN_IMG_PERDEU = pygame.transform.scale(
 
 # Classe do dinheiro
 
-
 class Dindin(pygame.sprite.Sprite):
     def __init__(self, img, x, y):
         pygame.sprite.Sprite.__init__(self)
@@ -102,7 +102,6 @@ class Dindin(pygame.sprite.Sprite):
         self.rect.y -= 5
 
 # Classe da tortilla
-
 
 class Tortilla(pygame.sprite.Sprite):
 
@@ -135,7 +134,6 @@ class Tortilla(pygame.sprite.Sprite):
 
 # Classe da esteira
 
-
 class Esteira(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
@@ -146,8 +144,8 @@ class Esteira(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
-# Classe da campainha
 
+# Classe da campainha
 
 class Campainha(pygame.sprite.Sprite):
     def __init__(self, x, y):
@@ -159,7 +157,6 @@ class Campainha(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
-
 
 # Classe de ingredientes
 class Ingrediente(pygame.sprite.Sprite):
@@ -173,8 +170,8 @@ class Ingrediente(pygame.sprite.Sprite):
         self.rect.x = self.x
         self.rect.y = self.y
         self.letra = letra
-# Classe do pedido (o primeiro burrito vai sempre ser o AFPCC)
 
+# Classe do pedido (o primeiro burrito vai sempre ser o AFPCC)
 
 class Pedido(pygame.sprite.Sprite):
     def __init__(self, image, x, y):
@@ -190,7 +187,6 @@ class Pedido(pygame.sprite.Sprite):
         self.rect.x = self.x
         self.rect.y = self.y
 
-
 all_sprites = pygame.sprite.Group()
 # Adiciona a esteira na lista de sprites
 esteira = Esteira(0, 0)
@@ -204,7 +200,6 @@ ingredientes.append(Ingrediente('cogumelo.png', 470, 430, 'C'))
 ingredientes.append(Ingrediente('peixe.png', 650, 430, 'P'))
 ingredientes.append(Ingrediente("feijao.png", 830, 430, 'F'))
 ingrediente_selecionado = None
-
 for ingrediente in ingredientes:
     all_sprites.add(ingrediente)
 
@@ -232,12 +227,10 @@ all_sprites.add(perdeu_dindin)
 background = pygame.image.load('planofundo.jpg').convert()
 background_rect = background.get_rect()
 
-
+# Fonte
 font = pygame.font.SysFont('PressStart2P.ttf', 50, True)
-
 numero = font.render(str(burritos_prontos), False, BLACK)
 din = font.render(str(dindin), False, BLACK)
-
 
 # Carrega a imagem de início
 
@@ -249,7 +242,6 @@ while running:
     pygame.display.update()
     for event in pygame.event.get():
         if event.type == pygame.MOUSEBUTTONDOWN:
-            print("Olá")
             running = False
 
 screen.blit(telainicio, [0, 0])
@@ -280,7 +272,7 @@ screen.blit(instrucoes2, [0, 0])
 pygame.mixer.music.play(-1)
 #------------------------------------------------------------#
 #------------------------------------------------------------#
-
+nao_campainha = True
 t = tortilla.rect
 
 # LOOP PRINCIPAL
@@ -321,9 +313,9 @@ try:
                     dx, dy = pygame.mouse.get_pos()
                     # Se você clicar na campainha
                     if ca.x <= dx <= ca.x+75 and ca.y <= dy <= ca.y + 75:
-                        # t = tortilla.rect
                         verifica = all(
                             e in lista_letras for e in lista_menu[listacomb-1])
+                        nao_campainha = False
                         if verifica == True:
                             if len(lista_letras) == 5:
                                 dindin += 100
@@ -334,9 +326,10 @@ try:
                                     DINDIN_IMG_GANHOU, 500, 400)
                                 all_sprites.add(dinheiromais)
                                 burritos_prontos += 1
+                                numero = font.render(str(burritos_prontos), False, BLACK)
+                                din = font.render(str(dindin), False, BLACK)
                                 screen.blit(numero, [340, 10])
                                 pygame.display.update()
-                            # n_burritos_prontos(burritos_prontos)
                         elif verifica == False:
                             dindin -= 100
                             listacomb = random.randint(1, 3)
@@ -347,9 +340,9 @@ try:
                             screen.fill(pygame.Color("BLACK"))
                             screen.blit(numero, [340, 10])
                             pygame.display.update()
-                            print(dindin)
                             if dindin <= 0:
                                 burrito.kill()
+                            din = font.render(str(dindin), False, BLACK)
                 if t.x > 1000:
                     verifica = all(
                         e in lista_letras for e in lista_menu[listacomb-1])
@@ -363,17 +356,22 @@ try:
                     filename = "{0}.png".format(combcompleto[listacomb - 1])
                     pedido.image = pygame.transform.scale(
                         pygame.image.load(filename), (250, 250))
-                    if verifica == True:
+                    if verifica == True and nao_campainha == True:
                         dinheiromais = Dindin(
                             DINDIN_IMG_GANHOU, 500, 400)
                         screen.blit(din, [300, 67])
+                        dindin += 100
+                        burritos_prontos += 1
+                        numero = font.render(str(burritos_prontos), False, BLACK)
+                        din = font.render(str(dindin), False, BLACK)
                         pygame.display.flip()
-                    elif verifica == False:
+                    elif verifica == False and nao_campainha == True:
                         dinheiromenos = Dindin(
                             DINDIN_IMG_PERDEU, 500, 400)
+                        dindin -= 100
                         screen.blit(din, [300, 67])
+                        din = font.render(str(dindin), False, BLACK)
 
-        # n_burritos_prontos(burritos_prontos)
         screen.blit(background, background_rect)
         all_sprites.update()
         all_sprites.draw(screen)
