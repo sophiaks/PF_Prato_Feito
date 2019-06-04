@@ -86,7 +86,6 @@ DINDIN_IMG_PERDEU = pygame.transform.scale(
 
 # Classe do dinheiro
 
-
 class Dindin(pygame.sprite.Sprite):
     def __init__(self, img, x, y):
         pygame.sprite.Sprite.__init__(self)
@@ -102,7 +101,6 @@ class Dindin(pygame.sprite.Sprite):
         self.rect.y -= 5
 
 # Classe da tortilla
-
 
 class Tortilla(pygame.sprite.Sprite):
 
@@ -135,7 +133,6 @@ class Tortilla(pygame.sprite.Sprite):
 
 # Classe da esteira
 
-
 class Esteira(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
@@ -146,8 +143,8 @@ class Esteira(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
-# Classe da campainha
 
+# Classe da campainha
 
 class Campainha(pygame.sprite.Sprite):
     def __init__(self, x, y):
@@ -159,7 +156,6 @@ class Campainha(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
-
 
 # Classe de ingredientes
 class Ingrediente(pygame.sprite.Sprite):
@@ -173,8 +169,8 @@ class Ingrediente(pygame.sprite.Sprite):
         self.rect.x = self.x
         self.rect.y = self.y
         self.letra = letra
-# Classe do pedido (o primeiro burrito vai sempre ser o AFPCC)
 
+# Classe do pedido (o primeiro burrito vai sempre ser o AFPCC)
 
 class Pedido(pygame.sprite.Sprite):
     def __init__(self, image, x, y):
@@ -190,7 +186,6 @@ class Pedido(pygame.sprite.Sprite):
         self.rect.x = self.x
         self.rect.y = self.y
 
-
 all_sprites = pygame.sprite.Group()
 # Adiciona a esteira na lista de sprites
 esteira = Esteira(0, 0)
@@ -204,7 +199,6 @@ ingredientes.append(Ingrediente('cogumelo.png', 470, 430, 'C'))
 ingredientes.append(Ingrediente('peixe.png', 650, 430, 'P'))
 ingredientes.append(Ingrediente("feijao.png", 830, 430, 'F'))
 ingrediente_selecionado = None
-
 for ingrediente in ingredientes:
     all_sprites.add(ingrediente)
 
@@ -232,12 +226,10 @@ all_sprites.add(perdeu_dindin)
 background = pygame.image.load('planofundo.jpg').convert()
 background_rect = background.get_rect()
 
-
+# Fonte
 font = pygame.font.SysFont('PressStart2P.ttf', 50, True)
-
 numero = font.render(str(burritos_prontos), False, BLACK)
 din = font.render(str(dindin), False, BLACK)
-
 
 # Carrega a imagem de início
 
