@@ -387,8 +387,6 @@ try:
         arq.write(texto)
         arq.close()
 
-
-
 except Exception as e:
     print(e)
 finally:
