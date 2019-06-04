@@ -15,6 +15,7 @@ pygame.mixer.music.load(musica)
 
 # Arquivo de highscore:
 arq = open('HIGHCORES.txt', 'w')
+arquivo = open("HIGHCORES.txt", "r")
 
 # Variáveis para a quantidade de burritos e highscore
 burritos_prontos = 0
@@ -242,7 +243,6 @@ numero = font.render(str(burritos_prontos), False, BLACK)
 din = font.render(str(dindin), False, BLACK)
 
 # Carrega a imagem de início
-
 running = True
 while running:
     telainicio = pygame.transform.scale(
@@ -346,17 +346,18 @@ try:
                             dinheiromenos = Dindin(
                                 DINDIN_IMG_PERDEU, 500, 400)
                             all_sprites.add(dinheiromenos)
+                            din = font.render(str(dindin), False, BLACK)
                             vel = 50
                             screen.fill(pygame.Color("BLACK"))
                             screen.blit(numero, [340, 10])
                             pygame.display.update()
                             if dindin <= 0:
-                                burrito.kill()
                                 # ADD TO HIGHSCORE
                                 texto = "{0}".format(burritos_prontos)
                                 arq.write(texto)
                                 arq.close()
-                            din = font.render(str(dindin), False, BLACK)
+                                burrito.kill()
+
                 if t.x > 1000:
                     verifica = all(
                         e in lista_letras for e in lista_menu[listacomb-1])
