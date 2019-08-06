@@ -33,7 +33,6 @@ lista_ingredientes = ['salada', 'arroz', 'peixe', 'feijao', 'cogumelo']
 listacomb = random.randint(1, 3)
 
 # Lista de letras
-
 lista_letras = []
 
 # Lista de letras do menu
